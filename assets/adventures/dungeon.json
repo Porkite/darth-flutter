@@ -1,0 +1,36 @@
+{
+  "map": {
+    "mapRows": [
+      "00000",
+      "0xxx0",
+      "000x0",
+      "000x0"
+    ],
+    "fileNamesInSequence": "abdcd",
+    "rankNamesInSequence": "1234"
+  },
+  "paragraphs": [
+    {
+      "identifier": "b2",
+      "options": {
+        "start": true
+      },
+      "text": "Wpadłeś do studni. Woda jest zimna i ciemna. Widzisz drabinkę prowadzącą do góry. Niestety jest poza zasięgiem Twoich dłoni. Widzisz tunel prowadzący na wschód."
+    },
+    {
+      "identifier": "c2",
+      "options": {},
+      "text": "Jesteś w podziemnym tunelu. Widzisz drogę prowadzącą na zachód i drzwi prowadzące na wschód."
+    },
+    {
+      "identifier": "d2",
+      "options": {},
+      "text": "Schodzisz do małego pomieszczenia. Widzisz drzwi prowadzące na zachód. Możesz również udać się wgłąb pomieszczenia idąc na wschód"
+    },
+    {
+      "identifier": "d3",
+      "options": {},
+      "text": "Jesteś w małym pomieszczeniu. Możesz iść na północ."
+    }
+  ]
+}

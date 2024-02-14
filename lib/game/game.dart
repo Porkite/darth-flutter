@@ -77,9 +77,9 @@ class _GameState extends State<Game> {
                   child: Icon(Icons.arrow_circle_up),
                 ),
               ),
-              SizedBox(width: 64), // Odstęp między przyciskami
+              SizedBox(width: 64),
             ],
-          ), // Odstęp między przyciskami
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -88,7 +88,6 @@ class _GameState extends State<Game> {
                 child: FloatingActionButton(
                   heroTag: "e",
                   onPressed: () {
-                    // Akcja wykonywana po naciśnięciu drugiego przycisku FAB
                   },
                   child: Icon(Icons.arrow_circle_left),
                 ),
@@ -98,7 +97,6 @@ class _GameState extends State<Game> {
                 child: FloatingActionButton(
                   heroTag: "s",
                   onPressed: () {
-                    // Akcja wykonywana po naciśnięciu drugiego przycisku FAB
                   },
                   child: Icon(Icons.arrow_circle_down),
                 ),
@@ -108,7 +106,6 @@ class _GameState extends State<Game> {
                 child: FloatingActionButton(
                   heroTag: "w",
                   onPressed: () {
-                    // Akcja wykonywana po naciśnięciu drugiego przycisku FAB
                   },
                   child: Icon(Icons.arrow_circle_right),
                 ),

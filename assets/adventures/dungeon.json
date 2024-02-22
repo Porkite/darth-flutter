@@ -11,6 +11,7 @@
   },
   "paragraphs": [
     {
+      "type": "text",
       "identifier": "b2",
       "options": {
         "start": true
@@ -18,19 +19,51 @@
       "text": "Wpadłeś do studni. Woda jest zimna i ciemna. Widzisz drabinkę prowadzącą do góry. Niestety jest poza zasięgiem Twoich dłoni. Widzisz tunel prowadzący na wschód."
     },
     {
+      "type": "text",
       "identifier": "c2",
       "options": {},
       "text": "Jesteś w podziemnym tunelu. Widzisz drogę prowadzącą na zachód i drzwi prowadzące na wschód."
     },
     {
+      "type": "text",
       "identifier": "d2",
       "options": {},
       "text": "Schodzisz do małego pomieszczenia. Widzisz drzwi prowadzące na zachód. Możesz również udać się wgłąb pomieszczenia idąc na wschód"
     },
     {
+      "type": "text",
       "identifier": "d3",
       "options": {},
       "text": "Jesteś w małym pomieszczeniu. Możesz iść na północ."
+    },
+    {
+      "type": "shop",
+      "identifier": "xxx",
+      "options": {
+        "shop": {
+          "potions": [
+            {
+              "name": "Tree Shake Potion",
+              "description": "Mikstura optymalizująca rozmiar EQ poprzez usuwanie nieużywanych itemów",
+              "effects": ["Redukcja masy", "Szybkość chudego byka"],
+              "price": 50
+            },
+            {
+              "name": "Async Await Attack",
+              "description": "Mocna mikstura ułatwiająca zarządzanie asynchronicznym atakiem.",
+              "effects": ["Zwiększa wydajność ataku dwoma mieczami"],
+              "price": 70
+            },
+            {
+              "name": "Kudos",
+              "description": "Boostuje zdolności i pewność siebie w ataku",
+              "effects": [""],
+              "price": 100
+            }
+          ]
+        }
+      },
+      "text": "Siema eniu, co tam chcesz kupić ?"
     }
   ]
 }

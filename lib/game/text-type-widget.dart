@@ -8,9 +8,9 @@ class TextTypeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Center(
+        const Center(
           child: CircleAvatar(
             backgroundImage: AssetImage('assets/images/player_avatar.png'),
             radius: 40,

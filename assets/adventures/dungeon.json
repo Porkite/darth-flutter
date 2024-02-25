@@ -38,32 +38,42 @@
     },
     {
       "type": "shop",
-      "identifier": "xxx",
+      "identifier": "shop",
+      "text": "",
       "options": {
-        "shop": {
-          "potions": [
-            {
-              "name": "Tree Shake Potion",
-              "description": "Mikstura optymalizująca rozmiar EQ poprzez usuwanie nieużywanych itemów",
-              "effects": ["Redukcja masy", "Szybkość chudego byka"],
-              "price": 50
-            },
-            {
-              "name": "Async Await Attack",
-              "description": "Mocna mikstura ułatwiająca zarządzanie asynchronicznym atakiem.",
-              "effects": ["Zwiększa wydajność ataku dwoma mieczami"],
-              "price": 70
-            },
-            {
-              "name": "Kudos",
-              "description": "Boostuje zdolności i pewność siebie w ataku",
-              "effects": [""],
-              "price": 100
-            }
-          ]
-        }
-      },
-      "text": "Siema eniu, co tam chcesz kupić ?"
+        "welcomeText": "Jaką potkę wariacie ?",
+        "assistantImg": "assets/images/shop/assistantImg.png",
+        "potions": [
+          {
+            "name": "Tree Shake Potion",
+            "description": "Mikstura optymalizująca rozmiar inventory poprzez usuwanie nieużywanych itemów",
+            "effects": [
+              "Redukcja masy",
+              "Szybkość chudego byka"
+            ],
+            "img": "assets/images/shop/potions/Icon25.png",
+            "price": 50
+          },
+          {
+            "name": "Async Await Attack",
+            "description": "Mocna mikstura ułatwiająca zarządzanie asynchronicznym atakiem.",
+            "effects": [
+              "Zwiększa wydajność ataku dwoma mieczami"
+            ],
+            "img": "assets/images/shop/potions/Icon43.png",
+            "price": 70
+          },
+          {
+            "name": "Kudos",
+            "description": "Boostuje zdolności i pewność siebie w ataku",
+            "effects": [
+              ""
+            ],
+            "img": "assets/images/shop/potions/Icon5.png",
+            "price": 100
+          }
+        ]
+      }
     }
   ]
 }

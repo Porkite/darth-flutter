@@ -1,24 +1,27 @@
-import 'package:flutter/cupertino.dart';
+import 'package:darth_flutter/shop/potion.dart';
 
-class Shop extends StatelessWidget {
-  final String text;
+import '../service/model/adventure_models.dart';
 
-  Shop({required this.text});
+class Shop {
+  final String _welcomeText;
+  final List<Potion> _potions;
+  final String _assistantImg;
 
-@override
-Widget build(BuildContext context) {
-  return Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Text(
-        text,
-        style: const TextStyle(
-          color: CupertinoColors.white,
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    ],
-  );
-}
+  Shop(this._welcomeText, this._potions, this._assistantImg);
+
+  String get welcomeText => _welcomeText;
+
+  List<Potion> get potions => _potions;
+
+  String get assistantImg => _assistantImg;
+
+  factory Shop.fromParagraph(Paragraph paragraph) {
+    final shopData = paragraph.options;
+    final welcomeText = shopData['welcomeText'];
+    final assistantImg = shopData['assistantImg'];
+    final potions = List<Potion>.from(
+        shopData['potions'].map((potion) => Potion.fromJson(potion)));
+
+    return Shop(welcomeText, potions, assistantImg);
+  }
 }

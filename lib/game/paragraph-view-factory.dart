@@ -3,7 +3,7 @@ import 'package:darth_flutter/service/model/adventure_models.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../service/adventure_manager.dart';
-import '../shop/shop.dart';
+import '../shop/shop-view.dart';
 
 class ParagraphViewFactory {
   static Future<Widget> buildParagraphViewByIdentifier(String identifier) async {
@@ -18,7 +18,7 @@ class ParagraphViewFactory {
       case 'text':
         return TextTypeWidget(text: paragraph.text);
       case 'shop':
-        return Shop(text: paragraph.text);
+        return ShopWidget(paragraph: paragraph);
       default:
         return SizedBox();
     }

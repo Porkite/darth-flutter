@@ -16,7 +16,7 @@ class _HomeState extends State<Home> {
             onPressed: () {
               Navigator.pushReplacementNamed(context, '/game');
             },
-            child: Text("Rozpocznij grę!"))
+            child: const Text("Rozpocznij grę!"))
       )
     );
   }

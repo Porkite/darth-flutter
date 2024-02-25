@@ -17,7 +17,6 @@ class _GameState extends State<Game> {
     });
   }
 
-
   @override
   void initState() {
     super.initState();
@@ -36,12 +35,12 @@ class _GameState extends State<Game> {
         backgroundColor: Colors.grey[850],
       ),
       body: Padding(
-        padding: EdgeInsets.all(30),
+        padding: const EdgeInsets.all(30),
         child: FutureBuilder<Widget>(
           future: ParagraphViewFactory.buildParagraphViewByIdentifier(selectedIdentifier),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return CircularProgressIndicator();
+              return const CircularProgressIndicator();
             } else if (snapshot.hasError) {
               return Text('Wystąpił błąd: ${snapshot.error}');
             } else {
@@ -85,7 +84,7 @@ class _GameState extends State<Game> {
                 child: FloatingActionButton(
                   heroTag: "s",
                   onPressed: () {
-                    setSelectedIdentifier("xxx");
+                    setSelectedIdentifier("shop");
                   },
                   child: Icon(Icons.arrow_circle_down),
                 ),

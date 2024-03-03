@@ -10,26 +10,30 @@ class AppleCatcher extends StatefulWidget {
 }
 
 class AppleCatcherState extends State<AppleCatcher> {
-  double playerPositionX = 0.0;
+  double playerPositionX = 150.0;
   double playerPositionY = 0.0;
 
   double screenWidth = 0;
   List<Apple> apples = [];
   final Random random = Random();
-  Timer? timer;
+  Timer? appleFallTimer;
+  Timer? appleAddTimer;
+  Duration appleAddDuration = Duration(milliseconds: 2500);
+  Duration appleFallDuration = Duration(milliseconds: 50);
+
   int score = 0;
 
   @override
   void initState() {
     super.initState();
 
-    timer = Timer.periodic(Duration(milliseconds: 50), (timer) {
+    appleFallTimer = Timer.periodic(appleFallDuration, (timer) {
       moveApplesDown();
       checkCollision();
     });
 
 
-    Timer.periodic(Duration(milliseconds: 500), (timer) {
+    appleAddTimer = Timer.periodic(appleAddDuration, (timer) {
       final appleX = random.nextDouble() * screenWidth;
       setState(() {
         apples.add(Apple(x: appleX, y: 0));
@@ -39,7 +43,7 @@ class AppleCatcherState extends State<AppleCatcher> {
 
   @override
   void dispose() {
-    timer?.cancel();
+    appleFallTimer?.cancel();
     super.dispose();
   }
 
@@ -58,79 +62,135 @@ class AppleCatcherState extends State<AppleCatcher> {
 
   void moveApplesDown() {
     setState(() {
-      apples = apples.map((apple) => Apple(x: apple.x, y: apple.y + 5)).toList();
+      apples =
+          apples.map((apple) => Apple(x: apple.x, y: apple.y + 5)).toList();
     });
   }
 
   void checkCollision() {
-    final playerPositionY = MediaQuery.of(context).size.height - 50 - 100;
+    final playerPositionY = MediaQuery
+        .of(context)
+        .size
+        .height - 50 - 100;
     final catcherLeftX = playerPositionX;
     final catcherRightX = playerPositionX + 100;
 
     for (var apple in List.from(apples)) {
       final appleBottomY = apple.y + 20;
 
-      if (appleBottomY >= playerPositionY && apple.x >= catcherLeftX && apple.x <= catcherRightX) {
+      if (appleBottomY >= playerPositionY && apple.x >= catcherLeftX &&
+          apple.x <= catcherRightX) {
         setState(() {
           score += 1;
           apples.remove(apple);
+          if (score % 5 == 0) {
+            appleAddDuration = Duration(milliseconds: max(10, appleAddDuration.inMilliseconds - 100));
+            appleAddTimer?.cancel(); 
+            appleAddTimer = Timer.periodic(appleAddDuration, (timer) {
+              final appleX = random.nextDouble() * screenWidth;
+              setState(() {
+                apples.add(Apple(x: appleX, y: 0));
+              });
+            });
+          }
+          if (score % 5 == 0) {
+            appleFallDuration = Duration(milliseconds: max(1, appleFallDuration.inMilliseconds - 1));
+            appleFallTimer?.cancel();
+            appleFallTimer = Timer.periodic(appleFallDuration, (timer) {
+              setState(() {
+                moveApplesDown();
+                checkCollision();
+              });
+            });
+          }
+
+
+
+
         });
         break;
       }
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
-    screenWidth = MediaQuery.of(context).size.width;
-    playerPositionY = MediaQuery.of(context).size.height - 50;
+    screenWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
+    playerPositionY = MediaQuery
+        .of(context)
+        .size
+        .height - 50;
 
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('Score: $score'),
-        ),
-        body: Stack(
-          children: [
-            for (var apple in apples)
-              Positioned(
-                left: apple.x,
-                top: apple.y,
-                child: Container(
-                  width: 20,
-                  height: 20,
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    shape: BoxShape.circle,
+        body: GestureDetector(
+          onPanUpdate: (details) {
+            setState(() {
+              playerPositionX =
+                  max(50, min(details.localPosition.dx, screenWidth - 50)) - 50;
+            });
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("images/apple_tree.png"),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Stack(
+              children: [
+                Positioned(
+                  top: 40,
+                  left: 0,
+                  right: 0,
+                  child: Center(
+                    child: Card(
+                      color: Colors.white.withOpacity(0.85),
+                      elevation: 5,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                        child: Text(
+                          'Score: $score',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            Positioned(
-              bottom: 50,
-              left: playerPositionX,
-              child: Container(
-                width: 100,
-                height: 50,
-                color: Colors.blue,
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  IconButton(
-                    icon: Icon(Icons.arrow_left),
-                    onPressed: moveLeft,
+
+
+                for (var apple in apples)
+                  Positioned(
+                    left: apple.x,
+                    top: apple.y,
+                    child: Container(
+                      width: 20,
+                      height: 20,
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
                   ),
-                  IconButton(
-                    icon: Icon(Icons.arrow_right),
-                    onPressed: moveRight,
+                Positioned(
+                  bottom: 50,
+                  left: playerPositionX,
+                  child:  Image.asset(
+                    'images/apple_rat.png',
+                    width: 100,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

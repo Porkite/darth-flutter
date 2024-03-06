@@ -1,0 +1,4 @@
+enum ParagraphType{
+  text,
+  shop,
+}

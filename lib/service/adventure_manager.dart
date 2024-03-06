@@ -6,6 +6,10 @@ class AdventureManager {
 
   Future<AdventureData> loadGameData() async {
     String jsonString = await rootBundle.loadString('assets/adventures/dungeon.json');
+    return parseGameData(jsonString);
+  }
+
+  AdventureData parseGameData(String jsonString) {
     Map<String, dynamic> jsonMap = json.decode(jsonString);
     return AdventureData.fromJson(jsonMap);
   }
@@ -14,5 +18,4 @@ class AdventureManager {
     AdventureData gameData = await loadGameData();
     return gameData;
   }
-
 }

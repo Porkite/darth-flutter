@@ -32,9 +32,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         FileManager().setCurrentFilePath(result.files.single.path!);
         Navigator.pushReplacementNamed(context, '/home');
       });
-
-    } else {
-      // User canceled the picker
     }
   }
 

@@ -59,6 +59,6 @@ class AdventureData {
 
   Paragraph getParagraphById(String identifier){
     return paragraphs.firstWhere((element) => element.identifier == identifier,
-    orElse: () => paragraphs.first);
+    orElse: () => new Paragraph(identifier: '', options: {}, text: 'Jesteś w miejscu, w którym być nie powinieneś', type: 'error'));
   }
 }

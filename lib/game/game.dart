@@ -1,5 +1,9 @@
 import 'package:darth_flutter/game/paragraph-view-factory.dart';
+import 'package:darth_flutter/service/model/direction.dart';
 import 'package:flutter/material.dart';
+
+import '../service/game_manager.dart';
+
 
 class Game extends StatefulWidget {
   const Game({super.key});
@@ -10,15 +14,19 @@ class Game extends StatefulWidget {
 
 class _GameState extends State<Game> {
   String selectedIdentifier = 'b2';
+  // GameManager().changePlayerPosition('ds');
+  // Singleton().doSomething();
 
-  void setSelectedIdentifier(String identifier) {
+  void setSelectedIdentifier(Direction direction) {
     setState(() {
-      selectedIdentifier = identifier;
+      GameManager().changePlayerPosition(direction);
+      selectedIdentifier = GameManager().getPlayerPosition();
     });
   }
 
   @override
-  void initState() {
+  void initState()
+  {
     super.initState();
   }
 
@@ -27,8 +35,8 @@ class _GameState extends State<Game> {
     return Scaffold(
       backgroundColor: Colors.grey[900],
       appBar: AppBar(
-        title: const Text('Ekran przygody',
-            style: TextStyle(
+        title: Text('Ekran przygody ($selectedIdentifier)',
+            style: const TextStyle(
               color: Colors.white,
             )),
         centerTitle: true,
@@ -59,7 +67,9 @@ class _GameState extends State<Game> {
                 padding: const EdgeInsets.all(4.0),
                 child: FloatingActionButton(
                   heroTag: "n",
-                  onPressed: () {},
+                  onPressed: () {
+                    setSelectedIdentifier(Direction.NORTH);
+                  },
                   child: Icon(Icons.arrow_circle_up),
                 ),
               ),
@@ -74,7 +84,7 @@ class _GameState extends State<Game> {
                 child: FloatingActionButton(
                   heroTag: "e",
                   onPressed: () {
-                    setSelectedIdentifier("b2");
+                    setSelectedIdentifier(Direction.EAST);
                   },
                   child: Icon(Icons.arrow_circle_left),
                 ),
@@ -84,7 +94,7 @@ class _GameState extends State<Game> {
                 child: FloatingActionButton(
                   heroTag: "s",
                   onPressed: () {
-                    setSelectedIdentifier("shop");
+                    setSelectedIdentifier(Direction.SOUTH);
                   },
                   child: Icon(Icons.arrow_circle_down),
                 ),
@@ -94,7 +104,7 @@ class _GameState extends State<Game> {
                 child: FloatingActionButton(
                   heroTag: "w",
                   onPressed: () {
-                    setSelectedIdentifier("d2");
+                    setSelectedIdentifier(Direction.WEST);
                   },
                   child: Icon(Icons.arrow_circle_right),
                 ),

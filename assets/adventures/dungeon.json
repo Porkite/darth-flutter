@@ -6,7 +6,7 @@
       "000x0",
       "000x0"
     ],
-    "fileNamesInSequence": "abdcd",
+    "fileNamesInSequence": "abcde",
     "rankNamesInSequence": "1234"
   },
   "paragraphs": [
@@ -34,11 +34,11 @@
       "type": "text",
       "identifier": "d3",
       "options": {},
-      "text": "Jesteś w małym pomieszczeniu. Możesz iść na północ."
+      "text": "Jesteś w małym pomieszczeniu. Możesz iść na północ. Na południu widzisz jakieś handlarza"
     },
     {
       "type": "shop",
-      "identifier": "shop",
+      "identifier": "d4",
       "text": "",
       "options": {
         "welcomeText": "Jaką potkę wariacie ?",

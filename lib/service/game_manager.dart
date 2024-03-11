@@ -24,7 +24,7 @@ class GameManager {
     }
   }
 
-  String getPlayerPosition() {
+  String getPlayerPositionId() {
     return playerCoordinates.x + playerCoordinates.y;
   }
 }

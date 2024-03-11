@@ -13,14 +13,14 @@ class Game extends StatefulWidget {
 }
 
 class _GameState extends State<Game> {
-  String selectedIdentifier = 'b2';
+  String playerPositionId = 'b2';
   // GameManager().changePlayerPosition('ds');
   // Singleton().doSomething();
 
-  void setSelectedIdentifier(Direction direction) {
+  void setNewPositionByDirection(Direction direction) {
     setState(() {
       GameManager().changePlayerPosition(direction);
-      selectedIdentifier = GameManager().getPlayerPosition();
+      playerPositionId = GameManager().getPlayerPositionId();
     });
   }
 
@@ -35,7 +35,7 @@ class _GameState extends State<Game> {
     return Scaffold(
       backgroundColor: Colors.grey[900],
       appBar: AppBar(
-        title: Text('Ekran przygody ($selectedIdentifier)',
+        title: Text('Ekran przygody ($playerPositionId)',
             style: const TextStyle(
               color: Colors.white,
             )),
@@ -45,7 +45,7 @@ class _GameState extends State<Game> {
       body: Padding(
         padding: const EdgeInsets.all(30),
         child: FutureBuilder<Widget>(
-          future: ParagraphViewFactory.buildParagraphViewByIdentifier(selectedIdentifier),
+          future: ParagraphViewFactory.buildParagraphViewByIdentifier(playerPositionId),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const CircularProgressIndicator();
@@ -68,7 +68,7 @@ class _GameState extends State<Game> {
                 child: FloatingActionButton(
                   heroTag: "n",
                   onPressed: () {
-                    setSelectedIdentifier(Direction.NORTH);
+                    setNewPositionByDirection(Direction.NORTH);
                   },
                   child: Icon(Icons.arrow_circle_up),
                 ),
@@ -84,7 +84,7 @@ class _GameState extends State<Game> {
                 child: FloatingActionButton(
                   heroTag: "e",
                   onPressed: () {
-                    setSelectedIdentifier(Direction.EAST);
+                    setNewPositionByDirection(Direction.EAST);
                   },
                   child: Icon(Icons.arrow_circle_left),
                 ),
@@ -94,7 +94,7 @@ class _GameState extends State<Game> {
                 child: FloatingActionButton(
                   heroTag: "s",
                   onPressed: () {
-                    setSelectedIdentifier(Direction.SOUTH);
+                    setNewPositionByDirection(Direction.SOUTH);
                   },
                   child: Icon(Icons.arrow_circle_down),
                 ),
@@ -104,7 +104,7 @@ class _GameState extends State<Game> {
                 child: FloatingActionButton(
                   heroTag: "w",
                   onPressed: () {
-                    setSelectedIdentifier(Direction.WEST);
+                    setNewPositionByDirection(Direction.WEST);
                   },
                   child: Icon(Icons.arrow_circle_right),
                 ),

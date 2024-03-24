@@ -22,7 +22,25 @@
       "type": "text",
       "identifier": "c2",
       "options": {},
-      "text": "Jesteś w podziemnym tunelu. Widzisz drogę prowadzącą na zachód i drzwi prowadzące na wschód."
+      "text": "Jesteś w podziemnym tunelu. Widzisz drogę prowadzącą na zachód drzwi prowadzące na wschód oraz małą szczeline prowadzącą na południe"
+    },
+    {
+      "type": "itemCatcher",
+      "identifier": "c3",
+      "text": "Hej rycerzu!",
+      "options": {
+        "welcomeText": "Za tym małym otworem jest drzewo życia. Zmniejszę cię, byś mógł się tam dostać i zebrać dla mnie owoce, a w zamian przepuszczę cię dalej. \n Wchodzi w to?",
+        "successText": "Przyjacielu udało Ci sie!.",
+        "failText": "Ci rycerze są bezużyteczni",
+        "retryText": "Właź spowrotem do dziury!!",
+        "witchImg": "assets/images/item-catcher/witch.png",
+        "gameSettings": {
+          "playerImg": "assets/images/item-catcher/apple_rat.png",
+          "backgroundImg": "assets/images/item-catcher/apple_tree.png",
+          "targetScore": 15,
+          "maxAttempts": 2
+        }
+      }
     },
     {
       "type": "text",

@@ -22,17 +22,17 @@
       "type": "text",
       "identifier": "c2",
       "options": {},
-      "text": "Jesteś w podziemnym tunelu. Widzisz drogę prowadzącą na zachód drzwi prowadzące na wschód oraz małą szczeline prowadzącą na południe"
+      "text": "Jesteś w podziemnym tunelu. Widzisz drogę prowadzącą na zachód, drzwi prowadzące na wschód oraz małą szczelinę prowadzącą na południe"
     },
     {
       "type": "itemCatcher",
       "identifier": "c3",
       "text": "Hej rycerzu!",
       "options": {
-        "welcomeText": "Za tym małym otworem jest drzewo życia. Zmniejszę cię, byś mógł się tam dostać i zebrać dla mnie owoce, a w zamian przepuszczę cię dalej. \n Wchodzi w to?",
-        "successText": "Przyjacielu udało Ci sie!.",
-        "failText": "Ci rycerze są bezużyteczni",
-        "retryText": "Właź spowrotem do dziury!!",
+        "welcomeText": "Za tym małym otworem jest drzewo życia. Zmniejszę Cię, byś mógł się tam dostać i zebrać dla mnie owoce, a w zamian przepuszczę Cię dalej. \n Wchodzisz w to?",
+        "successText": "Przyjacielu, udało Ci się!",
+        "failText": "Wasza brać jest bezużyteczna",
+        "retryText": "Właź z powrotem do dziury!!!",
         "witchImg": "assets/images/item-catcher/witch.png",
         "gameSettings": {
           "playerImg": "assets/images/item-catcher/apple_rat.png",

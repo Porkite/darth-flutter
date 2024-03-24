@@ -22,11 +22,13 @@ class Paragraph {
   final String identifier;
   final Map<String, dynamic> options;
   final String text;
+  final String type;
 
   Paragraph({
     required this.identifier,
     required this.options,
     required this.text,
+    required this.type,
   });
 
   factory Paragraph.fromJson(Map<String, dynamic> json) {
@@ -34,6 +36,7 @@ class Paragraph {
       identifier: json['identifier'],
       options: json['options'],
       text: json['text'],
+      type: json['type'],
     );
   }
 }
@@ -52,5 +55,10 @@ class AdventureData {
       mapData: MapData.fromJson(json),
       paragraphs: List<Paragraph>.from(json['paragraphs'].map((x) => Paragraph.fromJson(x))),
     );
+  }
+
+  Paragraph getParagraphById(String identifier){
+    return paragraphs.firstWhere((element) => element.identifier == identifier,
+    orElse: () => new Paragraph(identifier: '', options: {}, text: 'Jesteś w miejscu, w którym być nie powinieneś', type: 'error'));
   }
 }

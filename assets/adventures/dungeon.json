@@ -6,31 +6,74 @@
       "000x0",
       "000x0"
     ],
-    "fileNamesInSequence": "abdcd",
+    "fileNamesInSequence": "abcde",
     "rankNamesInSequence": "1234"
   },
   "paragraphs": [
     {
+      "type": "text",
       "identifier": "b2",
       "options": {
         "start": true
       },
-      "text": "Wpadłeś do studni. Woda jest zimna i ciemna. Widzisz drabinkę prowadzącą do góry. Niestety jest poza zasięgiem Twoich dłoni. Widzisz tunel prowadzący na wschód."
+      "text": "Wpadłeś do studni. Woda jest bardzo zimna i ciemna. Widzisz drabinkę prowadzącą do góry. Niestety jest poza zasięgiem Twoich dłoni. Widzisz tunel prowadzący na wschód."
     },
     {
+      "type": "text",
       "identifier": "c2",
       "options": {},
       "text": "Jesteś w podziemnym tunelu. Widzisz drogę prowadzącą na zachód i drzwi prowadzące na wschód."
     },
     {
+      "type": "text",
       "identifier": "d2",
       "options": {},
       "text": "Schodzisz do małego pomieszczenia. Widzisz drzwi prowadzące na zachód. Możesz również udać się wgłąb pomieszczenia idąc na wschód"
     },
     {
+      "type": "text",
       "identifier": "d3",
       "options": {},
-      "text": "Jesteś w małym pomieszczeniu. Możesz iść na północ."
+      "text": "Jesteś w małym pomieszczeniu. Możesz iść na północ. Na południu widzisz handlarza"
+    },
+    {
+      "type": "shop",
+      "identifier": "d4",
+      "text": "",
+      "options": {
+        "welcomeText": "Jaką potkę wariacie ?",
+        "assistantImg": "assets/images/shop/assistantImg.png",
+        "potions": [
+          {
+            "name": "Tree Shake Potion",
+            "description": "Mikstura optymalizująca rozmiar inventory poprzez usuwanie nieużywanych itemów",
+            "effects": [
+              "Redukcja masy",
+              "Szybkość chudego byka"
+            ],
+            "img": "assets/images/shop/potions/Icon25.png",
+            "price": 50
+          },
+          {
+            "name": "Async Await Attack",
+            "description": "Mocna mikstura ułatwiająca zarządzanie asynchronicznym atakiem.",
+            "effects": [
+              "Zwiększa wydajność ataku dwoma mieczami"
+            ],
+            "img": "assets/images/shop/potions/Icon43.png",
+            "price": 70
+          },
+          {
+            "name": "Kudos",
+            "description": "Boostuje zdolności i pewność siebie w ataku",
+            "effects": [
+              ""
+            ],
+            "img": "assets/images/shop/potions/Icon5.png",
+            "price": 100
+          }
+        ]
+      }
     }
   ]
 }

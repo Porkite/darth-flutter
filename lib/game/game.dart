@@ -1,5 +1,9 @@
-import 'package:darth_flutter/service/adventure_manager.dart';
+import 'package:darth_flutter/game/paragraph-view-factory.dart';
+import 'package:darth_flutter/service/model/direction.dart';
 import 'package:flutter/material.dart';
+
+import '../service/game_manager.dart';
+
 
 class Game extends StatefulWidget {
   const Game({super.key});
@@ -9,20 +13,21 @@ class Game extends StatefulWidget {
 }
 
 class _GameState extends State<Game> {
-  String text = "test";
+  String playerPositionId = 'b2';
+  // GameManager().changePlayerPosition('ds');
+  // Singleton().doSomething();
 
-  void setupAdventureManager() async {
-    AdventureManager instance = AdventureManager();
-    await instance.getAdventure();
+  void setNewPositionByDirection(Direction direction) {
     setState(() {
-      text = instance.currentParagraph.text;
+      GameManager().changePlayerPosition(direction);
+      playerPositionId = GameManager().getPlayerPositionId();
     });
   }
 
   @override
-  void initState() {
+  void initState()
+  {
     super.initState();
-    setupAdventureManager();
   }
 
   @override
@@ -30,39 +35,28 @@ class _GameState extends State<Game> {
     return Scaffold(
       backgroundColor: Colors.grey[900],
       appBar: AppBar(
-        title: const Text('Ekran przygody',
-            style: TextStyle(
+        title: Text('Ekran przygody ($playerPositionId)',
+            style: const TextStyle(
               color: Colors.white,
             )),
         centerTitle: true,
         backgroundColor: Colors.grey[850],
       ),
       body: Padding(
-          padding: EdgeInsets.all(30),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Center(
-                child: CircleAvatar(
-                  backgroundImage:
-                      AssetImage('assets/images/player_avatar.png'),
-                  radius: 40,
-                ),
-              ),
-              const Text('Witaj w grze!',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                  )),
-              Text(text,
-                  style: const TextStyle(
-                    color: Colors.white70,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  )),
-            ],
-          )),
+        padding: const EdgeInsets.all(30),
+        child: FutureBuilder<Widget>(
+          future: ParagraphViewFactory.buildParagraphViewByIdentifier(playerPositionId),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator();
+            } else if (snapshot.hasError) {
+              return Text('Wystąpił błąd: ${snapshot.error}');
+            } else {
+              return snapshot.data ?? Container();
+            }
+          },
+        ),
+      ),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
@@ -73,7 +67,9 @@ class _GameState extends State<Game> {
                 padding: const EdgeInsets.all(4.0),
                 child: FloatingActionButton(
                   heroTag: "n",
-                  onPressed: () {},
+                  onPressed: () {
+                    setNewPositionByDirection(Direction.NORTH);
+                  },
                   child: Icon(Icons.arrow_circle_up),
                 ),
               ),
@@ -88,6 +84,7 @@ class _GameState extends State<Game> {
                 child: FloatingActionButton(
                   heroTag: "e",
                   onPressed: () {
+                    setNewPositionByDirection(Direction.EAST);
                   },
                   child: Icon(Icons.arrow_circle_left),
                 ),
@@ -97,6 +94,7 @@ class _GameState extends State<Game> {
                 child: FloatingActionButton(
                   heroTag: "s",
                   onPressed: () {
+                    setNewPositionByDirection(Direction.SOUTH);
                   },
                   child: Icon(Icons.arrow_circle_down),
                 ),
@@ -106,6 +104,7 @@ class _GameState extends State<Game> {
                 child: FloatingActionButton(
                   heroTag: "w",
                   onPressed: () {
+                    setNewPositionByDirection(Direction.WEST);
                   },
                   child: Icon(Icons.arrow_circle_right),
                 ),

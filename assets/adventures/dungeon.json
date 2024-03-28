@@ -1,7 +1,7 @@
 {
   "map": {
     "mapRows": [
-      "00000",
+      "0x000",
       "0xxx0",
       "000x0",
       "000x0"
@@ -22,7 +22,7 @@
       "type": "text",
       "identifier": "c2",
       "options": {},
-      "text": "Jesteś w podziemnym tunelu. Widzisz drogę prowadzącą na zachód i drzwi prowadzące na wschód."
+      "text": "Jesteś w podziemnym tunelu Ziomek!. Widzisz drogę prowadzącą na zachód i drzwi prowadzące na wschód."
     },
     {
       "type": "text",

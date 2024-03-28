@@ -2,6 +2,7 @@ import 'package:darth_flutter/editor/editor-manager.dart';
 import 'package:flutter/material.dart';
 
 import '../file-manager.dart';
+import 'adventure-settings.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -36,33 +37,10 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text('Adventure Editor'),
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text(
-                'Ustawienia edytora przygody',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
-              ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.message),
-              title: const Text('Zapisz przygodę'),
-              onTap: () {
-                setState(() {
-                  _saveFile();
-                });
-              },
-            ),
-          ],
-        ),
+      drawer: AdventureSettingsDrawer(
+        onSave: () {
+          _saveFile();
+        },
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),

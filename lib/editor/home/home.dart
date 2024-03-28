@@ -1,4 +1,5 @@
 import 'package:darth_flutter/editor/editor-manager.dart';
+import 'package:darth_flutter/editor/home/paragraph-properties.dart';
 import 'package:flutter/material.dart';
 
 import '../file-manager.dart';
@@ -40,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Adventure Editor'),
+        title: Text('Edytor Przygody'),
       ),
       drawer: AdventureSettingsDrawer(
         onSave: () {
@@ -61,16 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            Expanded(child: TextField(
-                controller: _controller,
-                maxLines: null,
-                keyboardType: TextInputType.multiline,
-                decoration: InputDecoration(
-                  hintText: 'Tutaj znajduje się zawartość jsona',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-            )
+            Expanded(child: ParagraphProperties())
           ],
         ),
       ),

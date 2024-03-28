@@ -1,9 +1,9 @@
-import 'package:darth_flutter/game/equipment.dart';
 import 'package:darth_flutter/game/paragraph-view-factory.dart';
 import 'package:darth_flutter/service/model/direction.dart';
 import 'package:flutter/material.dart';
 
 import '../service/game_manager.dart';
+
 
 class Game extends StatefulWidget {
   const Game({super.key});
@@ -13,7 +13,9 @@ class Game extends StatefulWidget {
 }
 
 class _GameState extends State<Game> {
-  String playerPositionId = GameManager().getPlayerPositionId();
+  String playerPositionId = 'b2';
+  // GameManager().changePlayerPosition('ds');
+  // Singleton().doSomething();
 
   void setNewPositionByDirection(Direction direction) {
     setState(() {
@@ -23,7 +25,8 @@ class _GameState extends State<Game> {
   }
 
   @override
-  void initState() {
+  void initState()
+  {
     super.initState();
   }
 
@@ -42,8 +45,7 @@ class _GameState extends State<Game> {
       body: Padding(
         padding: const EdgeInsets.all(30),
         child: FutureBuilder<Widget>(
-          future: ParagraphViewFactory.buildParagraphViewByIdentifier(
-              playerPositionId),
+          future: ParagraphViewFactory.buildParagraphViewByIdentifier(playerPositionId),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const CircularProgressIndicator();
@@ -77,10 +79,6 @@ class _GameState extends State<Game> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Padding(
-                  padding: const EdgeInsets.only(left: 30),
-                  child: EquipmentButton.getEquipmentButton(setState)),
-              const Spacer(),
               Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: FloatingActionButton(

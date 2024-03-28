@@ -2,8 +2,6 @@ import 'dart:convert';
 import 'package:darth_flutter/service/model/adventure_models.dart';
 import 'package:flutter/services.dart';
 
-import 'items_manager.dart';
-
 class AdventureManager {
 
   Future<AdventureData> loadGameData() async {
@@ -18,7 +16,6 @@ class AdventureManager {
 
   Future<AdventureData> getAdventure() async {
     AdventureData gameData = await loadGameData();
-    await ItemsManager().loadItems();
     return gameData;
   }
 }

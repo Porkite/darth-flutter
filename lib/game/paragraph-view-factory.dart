@@ -1,6 +1,4 @@
-import 'package:darth_flutter/game/equipment.dart';
 import 'package:darth_flutter/game/text-type-widget.dart';
-import 'package:darth_flutter/service/game_manager.dart';
 import 'package:darth_flutter/service/model/adventure_models.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -9,9 +7,6 @@ import '../shop/shop-view.dart';
 
 class ParagraphViewFactory {
   static Future<Widget> buildParagraphViewByIdentifier(String identifier) async {
-    if (GameManager().getPlayerEquipment().isOpen()) {
-      return const EquipmentWidget();
-    }
     AdventureData adventureData = await AdventureManager().getAdventure();
     Paragraph paragraph = adventureData.getParagraphById(identifier);
     return _getWidgetByType(paragraph);

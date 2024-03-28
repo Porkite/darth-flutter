@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../file-manager.dart';
 import 'adventure-settings.dart';
+import 'map-presenter.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -31,6 +32,10 @@ class _HomeScreenState extends State<HomeScreen> {
     FileManager().saveFile(_controller.text);
   }
 
+  void _selectParagraph(String id) async {
+    print('Paragraph selected: $id');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,14 +49,29 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
-        child: TextField(
-          controller: _controller,
-          maxLines: null,
-          keyboardType: TextInputType.multiline,
-          decoration: InputDecoration(
-            hintText: 'Tutaj znajduje się zawartość jsona',
-            border: OutlineInputBorder(),
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Container(
+                child: MapPresenter(
+                  onParagraphClick: (id) {
+                    _selectParagraph(id);
+                  },
+                ),
+              ),
+            ),
+            Expanded(child: TextField(
+                controller: _controller,
+                maxLines: null,
+                keyboardType: TextInputType.multiline,
+                decoration: InputDecoration(
+                  hintText: 'Tutaj znajduje się zawartość jsona',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );

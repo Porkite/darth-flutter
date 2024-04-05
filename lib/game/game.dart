@@ -2,8 +2,9 @@ import 'package:darth_flutter/game/paragraph-view-factory.dart';
 import 'package:darth_flutter/service/model/direction.dart';
 import 'package:flutter/material.dart';
 
+import '../player/player-appbar-stats-widget.dart';
+import '../player/player.dart';
 import '../service/game_manager.dart';
-
 
 class Game extends StatefulWidget {
   const Game({super.key});
@@ -14,6 +15,8 @@ class Game extends StatefulWidget {
 
 class _GameState extends State<Game> {
   String playerPositionId = 'b2';
+  Player player = Player(avatarUrl: 'assets/images/player_avatar.png', hp: 100, coins: 2137);
+
   // GameManager().changePlayerPosition('ds');
   // Singleton().doSomething();
 
@@ -25,8 +28,7 @@ class _GameState extends State<Game> {
   }
 
   @override
-  void initState()
-  {
+  void initState() {
     super.initState();
   }
 
@@ -35,17 +37,23 @@ class _GameState extends State<Game> {
     return Scaffold(
       backgroundColor: Colors.grey[900],
       appBar: AppBar(
+        backgroundColor: Colors.grey[850],
+        leading: Row(
+          children: [
+            PlayerAppBarStatsWidget(player: player),
+          ],
+        ),
         title: Text('Ekran przygody ($playerPositionId)',
             style: const TextStyle(
               color: Colors.white,
             )),
         centerTitle: true,
-        backgroundColor: Colors.grey[850],
       ),
       body: Padding(
         padding: const EdgeInsets.all(30),
         child: FutureBuilder<Widget>(
-          future: ParagraphViewFactory.buildParagraphViewByIdentifier(playerPositionId),
+          future: ParagraphViewFactory.buildParagraphViewByIdentifier(
+              playerPositionId),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const CircularProgressIndicator();

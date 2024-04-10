@@ -1,6 +1,7 @@
 import 'package:darth_flutter/editor/editor-manager.dart';
 import 'package:darth_flutter/editor/home/paragraph-properties.dart';
 import 'package:flutter/material.dart';
+import '../file-manager.dart';
 import 'adventure-settings.dart';
 import 'map-presenter.dart';
 
@@ -19,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
   void _saveFile() async {
-    // FileManager().saveFile(_controller.text);
+    FileManager().saveFile(EditorManager().getAdventureDataAsJson());
   }
 
   void _selectParagraph(String id) async {

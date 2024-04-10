@@ -44,7 +44,7 @@ class _ParagraphPropertiesState extends State<ParagraphProperties> {
   }
 
   void _onTextFieldBlur() {
-    print('Text field blurred. Value: ${_controller.text}');
+    EditorManager().saveParagraphAdventure(widget.id!, _controller.text);
   }
 
   @override
@@ -53,7 +53,7 @@ class _ParagraphPropertiesState extends State<ParagraphProperties> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Właściwości Paragrafu ${widget.id ?? "brak"} ' + EditorManager().selectedParagraphId ),
+          title: Text('Właściwości Paragrafu ${widget.id ?? "brak"}'),
           bottom: TabBar(
             tabs: [
               Tab(text: 'Edytor Graficzny'),

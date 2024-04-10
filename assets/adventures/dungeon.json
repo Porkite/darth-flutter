@@ -74,6 +74,18 @@
    },
    "text": "",
    "type": "shop"
+  },
+  {
+   "identifier": "c3",
+   "options": {},
+   "text": "",
+   "type": ""
+  },
+  {
+   "identifier": "e3",
+   "options": {},
+   "text": "test",
+   "type": ""
   }
  ]
 }

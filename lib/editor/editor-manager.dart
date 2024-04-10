@@ -36,6 +36,8 @@ class EditorManager {
     int index = adventureData.paragraphs.indexWhere((paragraph) => paragraph.identifier == id);
     if (index != -1) {
       adventureData.paragraphs[index] = paragraphData;
+    } else {
+      adventureData.paragraphs.add(paragraphData);
     }
   }
 

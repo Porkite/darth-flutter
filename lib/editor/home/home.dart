@@ -14,31 +14,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late TextEditingController _controller;
-
   @override
   void initState() {
     super.initState();
-    _controller =
-        TextEditingController(text: EditorManager().adventureDataAsJson);
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 
   void _saveFile() async {
-    FileManager().saveFile(_controller.text);
+    // FileManager().saveFile(_controller.text);
   }
 
   void _selectParagraph(String id) async {
-    // EditorManager().selectedParagraphId = id;
-    // print('Paragraph selected:' + EditorManager().selectedParagraphId);
     setState(() {
       EditorManager().selectedParagraphId = id;
-      print('Paragraph selected:' + EditorManager().selectedParagraphId);
     });
   }
 

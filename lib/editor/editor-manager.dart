@@ -24,7 +24,12 @@ class EditorManager {
     return JsonEncoder.withIndent(' ').convert(paragraph.toJson());
   }
 
-  saveSelectedParagraphAdventure() {
+  getParagraph(String id) {
+    Paragraph paragraph = adventureData.paragraphs.firstWhere((paragraph) => paragraph.identifier == id, orElse: () => Paragraph(identifier: selectedParagraphId, options: {}, text: '', type: ''));
+    return paragraph;
+  }
+
+  saveParagraphAdventure(String id, String data) {
     //todo
   }
 

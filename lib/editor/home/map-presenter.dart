@@ -19,6 +19,15 @@ class _MapPresenterState extends State<MapPresenter> {
     return data.mapData.mapRows;
   }
 
+  getParagraphGridColor(id) {
+    Paragraph paragraph = EditorManager().getParagraph(id);
+    if (paragraph.text != '' || paragraph.options.isNotEmpty) {
+      return Colors.green;
+    } else {
+      return Colors.grey;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     List<String> flattenedMatrix = [];
@@ -29,7 +38,7 @@ class _MapPresenterState extends State<MapPresenter> {
       }
     }
     return DefaultTabController(
-      length: 2, // Ilość zakładek
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
           title: Text('Reprezentacja Mapy'),
@@ -50,12 +59,11 @@ class _MapPresenterState extends State<MapPresenter> {
                     widget.onParagraphClick(flattenedMatrix[index]);
                   },
                   child: Container(
-                    color: Colors.blueGrey,
+                    color: getParagraphGridColor(flattenedMatrix[index]),
                     child: Center(
                       child: Text(
                         flattenedMatrix[index],
-                        style:
-                            TextStyle(color: Colors.white, fontSize: 24.0),
+                        style: TextStyle(color: Colors.white, fontSize: 24.0),
                       ),
                     ),
                   ),

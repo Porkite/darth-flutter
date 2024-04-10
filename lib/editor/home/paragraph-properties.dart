@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import '../editor-manager.dart';
 
 class ParagraphProperties extends StatefulWidget {
-  const ParagraphProperties({Key? key}) : super(key: key);
+  final String? id;
+  const ParagraphProperties(this.id);
 
   @override
   State<ParagraphProperties> createState() => _ParagraphPropertiesState();
@@ -22,11 +23,17 @@ class _ParagraphPropertiesState extends State<ParagraphProperties> {
       }
     });
     _controller.text = EditorManager().selectedParagraphAdventureDataJson();
-    print("test");
   }
 
   void updateTextEditor() {
     _controller.text = EditorManager().selectedParagraphAdventureDataJson();
+  }
+  @override
+  void didUpdateWidget(ParagraphProperties oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    setState(() {
+      updateTextEditor();
+    });
   }
 
   @override
@@ -38,7 +45,6 @@ class _ParagraphPropertiesState extends State<ParagraphProperties> {
 
   void _onTextFieldBlur() {
     print('Text field blurred. Value: ${_controller.text}');
-    // Tutaj możesz wykonać odpowiednie działania po zblurrowaniu kontrolera tekstu
   }
 
   @override
@@ -47,7 +53,7 @@ class _ParagraphPropertiesState extends State<ParagraphProperties> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Właściwości Paragrafu ' + EditorManager().selectedParagraphId),
+          title: Text('Właściwości Paragrafu ${widget.id ?? "brak"} ' + EditorManager().selectedParagraphId ),
           bottom: TabBar(
             tabs: [
               Tab(text: 'Edytor Graficzny'),

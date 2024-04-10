@@ -1,8 +1,6 @@
 import 'package:darth_flutter/editor/editor-manager.dart';
 import 'package:darth_flutter/editor/home/paragraph-properties.dart';
 import 'package:flutter/material.dart';
-
-import '../file-manager.dart';
 import 'adventure-settings.dart';
 import 'map-presenter.dart';
 
@@ -14,11 +12,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  String selectedId = '';
+
   @override
   void initState() {
     super.initState();
   }
-
   void _saveFile() async {
     // FileManager().saveFile(_controller.text);
   }
@@ -26,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void _selectParagraph(String id) async {
     setState(() {
       EditorManager().selectedParagraphId = id;
+      selectedId = id;
     });
   }
 
@@ -54,7 +54,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            Expanded(child: ParagraphProperties())
+            Expanded(child:ParagraphProperties(selectedId)
+            ),
           ],
         ),
       ),

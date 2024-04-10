@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class MapData {
   final List<String> mapRows;
   final String fileNamesInSequence;
@@ -39,6 +41,13 @@ class Paragraph {
       type: json['type'],
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    'identifier': identifier,
+    'options': options,
+    'text': text,
+    'type': type,
+  };
 }
 
 class AdventureData {

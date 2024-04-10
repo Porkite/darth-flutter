@@ -34,39 +34,35 @@ class _MapPresenterState extends State<MapPresenter> {
         appBar: AppBar(
           title: Text('Reprezentacja Mapy'),
         ),
-        body: TabBarView(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: data.mapData.fileNamesInSequence.length,
-                  crossAxisSpacing: 10.0,
-                  mainAxisSpacing: 10.0,
-                ),
-                itemCount: flattenedMatrix.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return GridTile(
-                    child: GestureDetector(
-                      onTap: () {
-                        widget.onParagraphClick(flattenedMatrix[index]);
-                      },
-                      child: Container(
-                        color: Colors.blueGrey,
-                        child: Center(
-                          child: Text(
-                            flattenedMatrix[index],
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 24.0),
-                          ),
-                        ),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: data.mapData.fileNamesInSequence.length,
+              crossAxisSpacing: 10.0,
+              mainAxisSpacing: 10.0,
+            ),
+            itemCount: flattenedMatrix.length,
+            itemBuilder: (BuildContext context, int index) {
+              return GridTile(
+                child: GestureDetector(
+                  onTap: () {
+                    widget.onParagraphClick(flattenedMatrix[index]);
+                  },
+                  child: Container(
+                    color: Colors.blueGrey,
+                    child: Center(
+                      child: Text(
+                        flattenedMatrix[index],
+                        style:
+                            TextStyle(color: Colors.white, fontSize: 24.0),
                       ),
                     ),
-                  );
-                },
-              ),
-            ),
-          ],
+                  ),
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

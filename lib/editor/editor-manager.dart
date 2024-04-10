@@ -6,6 +6,7 @@ class EditorManager {
   static final EditorManager _instance = EditorManager._internal();
   late AdventureData adventureData;
   late String adventureDataAsJson;
+  late String selectedParagraphId = '';
 
   factory EditorManager() {
     return _instance;
@@ -17,6 +18,16 @@ class EditorManager {
     adventureData = parsedData;
     adventureDataAsJson = data;
   }
+
+  selectedParagraphAdventureDataJson() {
+    Paragraph paragraph = adventureData.paragraphs.firstWhere((paragraph) => paragraph.identifier == selectedParagraphId, orElse: () => Paragraph(identifier: selectedParagraphId, options: {}, text: '', type: ''));
+    return JsonEncoder.withIndent(' ').convert(paragraph.toJson());
+  }
+
+  saveSelectedParagraphAdventure() {
+    //todo
+  }
+
 
   EditorManager._internal();
 }

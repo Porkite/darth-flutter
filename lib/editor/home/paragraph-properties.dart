@@ -26,16 +26,16 @@ class _ParagraphPropertiesState extends State<ParagraphProperties> {
         ),
         body: TabBarView(
           children: [
-            // Widżety dla pierwszej zakładki
             Center(
-              child: Text('Content for Tab 1'),
+              child: Text(EditorManager().selectedParagraphId),
             ),
-            // Widżety dla drugiej zakładki
             Center(
-              child: Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
                 child: TextField(
                   controller: TextEditingController(
-                      text: EditorManager().adventureDataAsJson),
+                      // text: EditorManager().adventureDataAsJson),
+                      text: EditorManager().selectedParagraphAdventureDataJson()),
                   maxLines: null,
                   keyboardType: TextInputType.multiline,
                   decoration: InputDecoration(

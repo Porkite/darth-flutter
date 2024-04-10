@@ -34,7 +34,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _selectParagraph(String id) async {
-    print('Paragraph selected: $id');
+    // EditorManager().selectedParagraphId = id;
+    // print('Paragraph selected:' + EditorManager().selectedParagraphId);
+    setState(() {
+      EditorManager().selectedParagraphId = id;
+      print('Paragraph selected:' + EditorManager().selectedParagraphId);
+    });
   }
 
   @override

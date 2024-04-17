@@ -15,10 +15,8 @@ class Game extends StatefulWidget {
 
 class _GameState extends State<Game> {
   String playerPositionId = 'b2';
-  Player player = Player(avatarUrl: 'assets/images/player_avatar.png', hp: 100, coins: 2137);
+  Player player = Player();
 
-  // GameManager().changePlayerPosition('ds');
-  // Singleton().doSomething();
 
   void setNewPositionByDirection(Direction direction) {
     setState(() {
@@ -40,7 +38,7 @@ class _GameState extends State<Game> {
         backgroundColor: Colors.grey[850],
         leading: Row(
           children: [
-            PlayerAppBarStatsWidget(player: player),
+            PlayerAppBarStatsWidget(),
           ],
         ),
         title: Text('Ekran przygody ($playerPositionId)',

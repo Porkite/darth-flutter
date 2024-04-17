@@ -11,15 +11,28 @@ class ShopWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("SKLEP")),
-      body: Center(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/shop/potions-shop-background.jpeg"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Center(
           child: ElevatedButton(
-        child: const Text("Potiony"),
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => ShopPotionWidget(paragraph: paragraph)));
-        },
-      )),
+            child: const Text("Potiony"),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ShopPotionWidget(paragraph: paragraph),
+                ),
+              );
+            },
+          ),
+        ),
+      ),
     );
-    throw UnimplementedError();
   }
+
 }

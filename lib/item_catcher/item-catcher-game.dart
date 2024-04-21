@@ -172,13 +172,10 @@ class ItemCatcherGameState extends State<ItemCatcherGame> {
                   Positioned(
                     left: item.x,
                     top: item.y,
-                    child: Container(
+                    child: Image.asset(
+                      widget._gameSettings.itemImg,
                       width: 20,
                       height: 20,
-                      decoration: const BoxDecoration(
-                        color: Colors.red,
-                        shape: BoxShape.circle,
-                      ),
                     ),
                   ),
                 Positioned(

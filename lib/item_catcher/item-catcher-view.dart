@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../service/game_manager.dart';
 import '../service/model/adventure_models.dart';
+import '../service/model/coordinates.dart';
 import 'game-state.dart';
 import 'item-catcher-game.dart';
 import 'item-cather.dart';
@@ -60,7 +62,7 @@ class _ItemCatcherView extends State<ItemCatcherWidget> {
           ),
         ),
         const SizedBox(height: 40),
-        if (_gameState != GameState.lost)
+        if (_gameState != GameState.lost && _gameState != GameState.victory)
           ElevatedButton(
             onPressed: () async {
               await startGame();
@@ -68,12 +70,20 @@ class _ItemCatcherView extends State<ItemCatcherWidget> {
             child: Text('Wchodzę w to!'),
           ),
         const SizedBox(height: 10),
-        ElevatedButton(
-          onPressed: () {
-            // Navigator.pop(context);
-          },
-          child: Text('To ja uciekam'),
-        ),
+        if (_gameState != GameState.lost && _gameState != GameState.victory)
+          ElevatedButton(
+            onPressed: () {
+              GameManager().setPreviousPlayerPosition();
+            },
+            child: Text('To ja uciekam'),
+          ),
+        if (_gameState == GameState.lost)
+          ElevatedButton(
+            onPressed: () {
+              GameManager().setPlayerPosition(Coordinates("b", "2"));
+            },
+            child: Text('O nie!!!'),
+          ),
         Spacer(),
       ],
     );
@@ -87,7 +97,6 @@ class _ItemCatcherView extends State<ItemCatcherWidget> {
       ),
     );
     int score = result['score'] ?? 0;
-    print(score);
     _attemptCount += 1;
     if (score >= _itemCatcher.gameSettings.targetScore) {
       _gameState = GameState.victory;

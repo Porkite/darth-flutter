@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class MapData {
   final List<String> mapRows;
   final String fileNamesInSequence;
@@ -11,10 +13,18 @@ class MapData {
 
   factory MapData.fromJson(Map<String, dynamic> json) {
     return MapData(
-      mapRows: List<String>.from(json['map']['mapRows']),
-      fileNamesInSequence: json['map']['fileNamesInSequence'],
-      rankNamesInSequence: json['map']['rankNamesInSequence'],
+      mapRows: List<String>.from(json['mapData']['mapRows']),
+      fileNamesInSequence: json['mapData']['fileNamesInSequence'],
+      rankNamesInSequence: json['mapData']['rankNamesInSequence'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'mapRows': mapRows,
+      'fileNamesInSequence': fileNamesInSequence,
+      'rankNamesInSequence': rankNamesInSequence,
+    };
   }
 }
 
@@ -39,6 +49,13 @@ class Paragraph {
       type: json['type'],
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    'identifier': identifier,
+    'options': options,
+    'text': text,
+    'type': type,
+  };
 }
 
 class AdventureData {
@@ -55,6 +72,13 @@ class AdventureData {
       mapData: MapData.fromJson(json),
       paragraphs: List<Paragraph>.from(json['paragraphs'].map((x) => Paragraph.fromJson(x))),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'mapData': mapData.toJson(),
+      'paragraphs': paragraphs.map((paragraph) => paragraph.toJson()).toList(),
+    };
   }
 
   Paragraph getParagraphById(String identifier){

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../service/game_manager.dart';
 import '../service/model/equipment_state.dart';
+import 'controls/floating-action-button.dart';
 
 class EquipmentWidget extends StatefulWidget {
   const EquipmentWidget({super.key});
@@ -95,7 +96,7 @@ class EquipmentButton {
   static Widget getEquipmentButton(Function setState) {
     var playerEquipment = GameManager().getPlayerEquipment();
 
-    var closeButton = FloatingActionButton(
+    var closeButton = DarthFloatingActionButton(
       onPressed: () {
         setState(() {
           playerEquipment.close();
@@ -104,7 +105,7 @@ class EquipmentButton {
       child: const Icon(Icons.no_backpack),
     );
 
-    var openButton = FloatingActionButton(
+    var openButton = DarthFloatingActionButton(
       onPressed: () {
         setState(() {
           playerEquipment.open();

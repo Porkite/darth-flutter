@@ -21,7 +21,7 @@ class DarthFloatingActionButton extends StatelessWidget {
       foregroundColor: ColorPalette.midnightBlue,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),
-        side: BorderSide(color: ColorPalette.wetAsphalt, width: 5), // Kolor ramki
+        side: BorderSide(color: ColorPalette.wetAsphalt, width: 5),
       ),
     );
   }

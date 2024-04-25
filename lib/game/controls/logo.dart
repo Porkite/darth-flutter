@@ -27,7 +27,7 @@ class _LogoState extends State<Logo>
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double fontSize = screenWidth * 0.1; // Adjust this factor as needed
+    double fontSize = screenWidth * 0.1;
 
     return SlideTransition(
       position: _offsetAnimation,

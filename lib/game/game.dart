@@ -4,7 +4,6 @@ import 'package:darth_flutter/service/model/direction.dart';
 import 'package:flutter/material.dart';
 
 import '../service/game_manager.dart';
-import 'controls/floating-action-button.dart';
 
 class Game extends StatefulWidget {
   const Game({super.key});
@@ -64,7 +63,8 @@ class _GameState extends State<Game> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(4.0),
-                child: DarthFloatingActionButton(
+                child: FloatingActionButton(
+                  heroTag: "n",
                   onPressed: () {
                     setNewPositionByDirection(Direction.NORTH);
                   },
@@ -83,7 +83,8 @@ class _GameState extends State<Game> {
               const Spacer(),
               Padding(
                 padding: const EdgeInsets.all(4.0),
-                child: DarthFloatingActionButton(
+                child: FloatingActionButton(
+                  heroTag: "e",
                   onPressed: () {
                     setNewPositionByDirection(Direction.EAST);
                   },
@@ -92,7 +93,8 @@ class _GameState extends State<Game> {
               ),
               Padding(
                 padding: const EdgeInsets.all(4.0),
-                child: DarthFloatingActionButton(
+                child: FloatingActionButton(
+                  heroTag: "s",
                   onPressed: () {
                     setNewPositionByDirection(Direction.SOUTH);
                   },
@@ -101,7 +103,8 @@ class _GameState extends State<Game> {
               ),
               Padding(
                 padding: const EdgeInsets.all(4.0),
-                child: DarthFloatingActionButton(
+                child: FloatingActionButton(
+                  heroTag: "w",
                   onPressed: () {
                     setNewPositionByDirection(Direction.WEST);
                   },

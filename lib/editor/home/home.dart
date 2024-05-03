@@ -1,7 +1,9 @@
 import 'package:darth_flutter/editor/editor-manager.dart';
+import 'package:darth_flutter/editor/home/paragraph-properties.dart';
 import 'package:flutter/material.dart';
-
 import '../file-manager.dart';
+import 'adventure-settings.dart';
+import 'map-presenter.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -11,69 +13,51 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late TextEditingController _controller;
+  String selectedId = '';
 
   @override
   void initState() {
     super.initState();
-    _controller =
-        TextEditingController(text: EditorManager().adventureDataAsJson);
   }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
   void _saveFile() async {
-    FileManager().saveFile(_controller.text);
+    FileManager().saveFile(EditorManager().getAdventureDataAsJson());
+  }
+
+  void _selectParagraph(String id) async {
+    setState(() {
+      EditorManager().selectedParagraphId = id;
+      selectedId = id;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Adventure Editor'),
+        title: Text('Edytor Przygody'),
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text(
-                'Ustawienia edytora przygody',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
-              ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.message),
-              title: const Text('Zapisz przygodę'),
-              onTap: () {
-                setState(() {
-                  _saveFile();
-                });
-              },
-            ),
-          ],
-        ),
+      drawer: AdventureSettingsDrawer(
+        onSave: () {
+          _saveFile();
+        },
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
-        child: TextField(
-          controller: _controller,
-          maxLines: null,
-          keyboardType: TextInputType.multiline,
-          decoration: InputDecoration(
-            hintText: 'Tutaj znajduje się zawartość jsona',
-            border: OutlineInputBorder(),
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Container(
+                child: MapPresenter(
+                  onParagraphClick: (id) {
+                    _selectParagraph(id);
+                  },
+                ),
+              ),
+            ),
+            Expanded(child:ParagraphProperties(selectedId)
+            ),
+          ],
         ),
       ),
     );

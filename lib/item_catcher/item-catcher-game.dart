@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'game-settings.dart';
 import 'item.dart';
+import 'package:sensors_plus/sensors_plus.dart';
 
 class ItemCatcherGame extends StatefulWidget {
   final GameSettings _gameSettings;
@@ -28,12 +29,25 @@ class ItemCatcherGameState extends State<ItemCatcherGame> {
   Timer? itemAddTimer;
   Duration itemAddDuration = const Duration(milliseconds: 1500);
   Duration itemFallDuration = const Duration(milliseconds: 30);
+  double sensitivityAccelerometer = 2.0;
+  StreamSubscription<AccelerometerEvent>? accelerometerSubscription;
 
   int score = 0;
 
   @override
   void initState() {
     super.initState();
+    accelerometerSubscription =
+        accelerometerEvents.listen((AccelerometerEvent event) {
+      double newPlayerPosition =
+          playerPositionX - event.x * sensitivityAccelerometer;
+      double minX = 0.0;
+      double maxX = screenWidth - 100;
+
+      setState(() {
+        playerPositionX = newPlayerPosition.clamp(minX, maxX);
+      });
+    });
 
     itemFallTimer = Timer.periodic(itemFallDuration, (timer) {
       moveItemsDown();
@@ -52,19 +66,8 @@ class ItemCatcherGameState extends State<ItemCatcherGame> {
   void dispose() {
     itemFallTimer?.cancel();
     itemAddTimer?.cancel();
+    accelerometerSubscription?.cancel();
     super.dispose();
-  }
-
-  void moveLeft() {
-    setState(() {
-      playerPositionX = max(0, playerPositionX - 10);
-    });
-  }
-
-  void moveRight() {
-    setState(() {
-      playerPositionX = min(screenWidth - 100, playerPositionX + 10);
-    });
   }
 
   void moveItemsDown() {
@@ -194,5 +197,3 @@ class ItemCatcherGameState extends State<ItemCatcherGame> {
     );
   }
 }
-
-

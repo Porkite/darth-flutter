@@ -1,9 +1,9 @@
-import 'package:darth_flutter/game/equipment.dart';
 import 'package:darth_flutter/game/paragraph-view-factory.dart';
-import 'package:darth_flutter/service/model/direction.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 import '../service/game_manager.dart';
+import '../service/model/direction.dart';
+import 'equipment.dart';
 
 class Game extends StatefulWidget {
   const Game({super.key});
@@ -13,18 +13,24 @@ class Game extends StatefulWidget {
 }
 
 class _GameState extends State<Game> {
-  String playerPositionId = GameManager().getPlayerPositionId();
-
-  void setNewPositionByDirection(Direction direction) {
-    setState(() {
-      GameManager().changePlayerPosition(direction);
-      playerPositionId = GameManager().getPlayerPositionId();
-    });
-  }
-
   @override
   void initState() {
     super.initState();
+  }
+
+  Widget _buildDirectionButton({
+    required IconData icon,
+    required bool isBlocked,
+    required Direction direction,
+  }) {
+    return FloatingActionButton(
+      onPressed: isBlocked
+          ? null
+          : () => GameManager().changePlayerPosition(direction),
+      backgroundColor: isBlocked ? Colors.grey : null,
+      heroTag: direction.toString(),
+      child: Icon(icon),
+    );
   }
 
   @override
@@ -32,88 +38,91 @@ class _GameState extends State<Game> {
     return Scaffold(
       backgroundColor: Colors.grey[900],
       appBar: AppBar(
-        title: Text('Ekran przygody ($playerPositionId)',
-            style: const TextStyle(
-              color: Colors.white,
-            )),
+        title: Selector<GameManager, String>(
+          selector: (_, gm) => gm.getPlayerPositionId(),
+          builder: (_, positionId, __) => Text(
+            'Ekran przygody ($positionId)',
+            style: const TextStyle(color: Colors.white),
+          ),
+        ),
         centerTitle: true,
         backgroundColor: Colors.grey[850],
       ),
       body: Padding(
         padding: const EdgeInsets.all(30),
-        child: FutureBuilder<Widget>(
-          future: ParagraphViewFactory.buildParagraphViewByIdentifier(
-              playerPositionId),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator();
-            } else if (snapshot.hasError) {
-              return Text('Wystąpił błąd: ${snapshot.error}');
-            } else {
-              return snapshot.data ?? Container();
-            }
+        child: Selector<GameManager, String>(
+          selector: (_, gm) => gm.getPlayerPositionId(),
+          builder: (context, positionId, __) {
+            return FutureBuilder<Widget>(
+              future: ParagraphViewFactory.buildParagraphViewByIdentifier(
+                  positionId),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const CircularProgressIndicator();
+                } else if (snapshot.hasError) {
+                  return Text('Wystąpił błąd: ${snapshot.error}');
+                } else {
+                  return snapshot.data ?? Container();
+                }
+              },
+            );
           },
         ),
       ),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: FloatingActionButton(
-                  heroTag: "n",
-                  onPressed: () {
-                    setNewPositionByDirection(Direction.NORTH);
-                  },
-                  child: Icon(Icons.arrow_circle_up),
+      floatingActionButton: Selector<GameManager, bool>(
+        selector: (_, gm) => gm.getBlockedMovement(),
+        builder: (_, isBlocked, __) => Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: _buildDirectionButton(
+                    icon: Icons.arrow_circle_up,
+                    isBlocked: isBlocked,
+                    direction: Direction.NORTH,
+                  ),
                 ),
-              ),
-              SizedBox(width: 64),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(
-                  padding: const EdgeInsets.only(left: 30),
-                  child: EquipmentButton.getEquipmentButton(setState)),
-              const Spacer(),
-              Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: FloatingActionButton(
-                  heroTag: "e",
-                  onPressed: () {
-                    setNewPositionByDirection(Direction.EAST);
-                  },
-                  child: Icon(Icons.arrow_circle_left),
+                const SizedBox(width: 64),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                    padding: const EdgeInsets.only(left: 30),
+                    child: EquipmentButton.getEquipmentButton(setState)),
+                const Spacer(),
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: _buildDirectionButton(
+                    icon: Icons.arrow_circle_left,
+                    isBlocked: isBlocked,
+                    direction: Direction.EAST,
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: FloatingActionButton(
-                  heroTag: "s",
-                  onPressed: () {
-                    setNewPositionByDirection(Direction.SOUTH);
-                  },
-                  child: Icon(Icons.arrow_circle_down),
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: _buildDirectionButton(
+                    icon: Icons.arrow_circle_down,
+                    isBlocked: isBlocked,
+                    direction: Direction.SOUTH,
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: FloatingActionButton(
-                  heroTag: "w",
-                  onPressed: () {
-                    setNewPositionByDirection(Direction.WEST);
-                  },
-                  child: Icon(Icons.arrow_circle_right),
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: _buildDirectionButton(
+                    icon: Icons.arrow_circle_right,
+                    isBlocked: isBlocked,
+                    direction: Direction.WEST,
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

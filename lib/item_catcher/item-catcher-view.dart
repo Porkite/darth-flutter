@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../service/game_manager.dart';
 import '../service/model/adventure_models.dart';
-import '../service/model/coordinates.dart';
 import 'game-state.dart';
 import 'item-catcher-game.dart';
 import 'item-cather.dart';
@@ -26,9 +25,20 @@ class _ItemCatcherView extends State<ItemCatcherWidget> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      GameManager().setBlockMovement(true);
+    });
     _itemCatcher = ItemCatcher.fromParagraph(widget.paragraph);
     _text = widget.paragraph.text;
     _mainText = _itemCatcher.welcomeText;
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      GameManager().setBlockMovement(false);
+    });
+    super.dispose();
   }
 
   @override
@@ -73,14 +83,14 @@ class _ItemCatcherView extends State<ItemCatcherWidget> {
         if (_gameState != GameState.lost && _gameState != GameState.victory)
           ElevatedButton(
             onPressed: () {
-              GameManager().setPreviousPlayerPosition();
+              GameManager().rollbackPlayerPosition(3);
             },
-            child: Text('To ja uciekam'),
+            child: Text('Nie wejdę'),
           ),
         if (_gameState == GameState.lost)
           ElevatedButton(
             onPressed: () {
-              GameManager().setPlayerPosition(Coordinates("b", "2"));
+              GameManager().rollbackPlayerPosition(10);
             },
             child: Text('O nie!!!'),
           ),
@@ -100,6 +110,7 @@ class _ItemCatcherView extends State<ItemCatcherWidget> {
     _attemptCount += 1;
     if (score >= _itemCatcher.gameSettings.targetScore) {
       _gameState = GameState.victory;
+       GameManager().setBlockMovement(false);
     } else {
       if (_attemptCount < _itemCatcher.gameSettings.maxAttempts) {
         _gameState = GameState.inProgress;

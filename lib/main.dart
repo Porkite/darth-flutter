@@ -1,14 +1,21 @@
 import 'package:darth_flutter/game/game.dart';
 import 'package:darth_flutter/home/home.dart';
+import 'package:darth_flutter/service/game_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/home',
-      routes: {
-        '/home': (context) => Home(),
-        '/game': (context) => Game(),
-      }
-  ));
+  runApp(
+    ChangeNotifierProvider<GameManager>(
+      create: (context) => GameManager(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: '/home',
+        routes: {
+          '/home': (context) => Home(),
+          '/game': (context) => Game(),
+        },
+      ),
+    ),
+  );
 }

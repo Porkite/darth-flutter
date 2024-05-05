@@ -38,7 +38,7 @@
          "playerImg": "assets/images/item-catcher/apple_rat.png",
          "backgroundImg": "assets/images/item-catcher/apple_tree.png",
          "itemImg": "assets/images/item-catcher/apple.png",
-         "targetScore": 15,
+         "targetScore": 35,
          "maxAttempts": 2
        }
      }

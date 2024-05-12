@@ -24,6 +24,25 @@
    "text": "Jesteś w podziemnym tunelu Ziomek!. Widzisz drogę prowadzącą na zachód i drzwi prowadzące na wschód.",
    "type": "text"
   },
+   {
+     "type": "itemCatcher",
+     "identifier": "c3",
+     "text": "Hej rycerzu!",
+     "options": {
+       "welcomeText": "Za tym małym otworem jest drzewo życia. Zmniejszę Cię, byś mógł się tam dostać i zebrać dla mnie owoce, a w zamian przepuszczę Cię dalej. \n Wchodzisz w to?",
+       "successText": "Przyjacielu, udało Ci się!",
+       "failText": "Wasza brać jest bezużyteczna",
+       "retryText": "Właź z powrotem do dziury!!!",
+       "witchImg": "assets/images/item-catcher/witch.png",
+       "gameSettings": {
+         "playerImg": "assets/images/item-catcher/apple_rat.png",
+         "backgroundImg": "assets/images/item-catcher/apple_tree.png",
+         "itemImg": "assets/images/item-catcher/apple.png",
+         "targetScore": 35,
+         "maxAttempts": 2
+       }
+     }
+   },
   {
    "identifier": "d2",
    "options": {},

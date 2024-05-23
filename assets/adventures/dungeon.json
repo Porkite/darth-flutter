@@ -1,79 +1,110 @@
 {
-  "map": {
-    "mapRows": [
-      "00000",
-      "0xxx0",
-      "000x0",
-      "000x0"
-    ],
-    "fileNamesInSequence": "abcde",
-    "rankNamesInSequence": "1234"
+ "mapData": {
+  "mapRows": [
+   "0x000",
+   "0xxx0",
+   "000x0",
+   "000x0"
+  ],
+  "fileNamesInSequence": "abcdef",
+  "rankNamesInSequence": "1234"
+ },
+ "paragraphs": [
+  {
+   "identifier": "b2",
+   "options": {
+    "start": true
+   },
+   "text": "Wpadłeś do głębokiej studni. Woda jest bardzo zimna i ciemna. Widzisz drabinkę prowadzącą do góry. Niestety jest poza zasięgiem Twoich dłoni. Widzisz tunel prowadzący na wschód.",
+   "type": "text"
   },
-  "paragraphs": [
-    {
-      "type": "text",
-      "identifier": "b2",
-      "options": {
-        "start": true
-      },
-      "text": "Wpadłeś do studni. Woda jest bardzo zimna i ciemna. Widzisz drabinkę prowadzącą do góry. Niestety jest poza zasięgiem Twoich dłoni. Widzisz tunel prowadzący na wschód."
-    },
-    {
-      "type": "text",
-      "identifier": "c2",
-      "options": {},
-      "text": "Jesteś w podziemnym tunelu. Widzisz drogę prowadzącą na zachód i drzwi prowadzące na wschód."
-    },
-    {
-      "type": "text",
-      "identifier": "d2",
-      "options": {},
-      "text": "Schodzisz do małego pomieszczenia. Widzisz drzwi prowadzące na zachód. Możesz również udać się wgłąb pomieszczenia idąc na wschód"
-    },
-    {
-      "type": "text",
-      "identifier": "d3",
-      "options": {},
-      "text": "Jesteś w małym pomieszczeniu. Możesz iść na północ. Na południu widzisz handlarza"
-    },
-    {
-      "type": "shop",
-      "identifier": "d4",
-      "text": "",
-      "options": {
-        "welcomeText": "Jaką potkę wariacie ?",
-        "assistantImg": "assets/images/shop/assistantImg.png",
-        "potions": [
-          {
-            "name": "Tree Shake Potion",
-            "description": "Mikstura optymalizująca rozmiar inventory poprzez usuwanie nieużywanych itemów",
-            "effects": [
-              "Redukcja masy",
-              "Szybkość chudego byka"
-            ],
-            "img": "assets/images/shop/potions/Icon25.png",
-            "price": 50
-          },
-          {
-            "name": "Async Await Attack",
-            "description": "Mocna mikstura ułatwiająca zarządzanie asynchronicznym atakiem.",
-            "effects": [
-              "Zwiększa wydajność ataku dwoma mieczami"
-            ],
-            "img": "assets/images/shop/potions/Icon43.png",
-            "price": 70
-          },
-          {
-            "name": "Kudos",
-            "description": "Boostuje zdolności i pewność siebie w ataku",
-            "effects": [
-              ""
-            ],
-            "img": "assets/images/shop/potions/Icon5.png",
-            "price": 100
-          }
-        ]
-      }
-    }
-  ]
+  {
+   "identifier": "c2",
+   "options": {},
+   "text": "Jesteś w podziemnym tunelu Ziomek!. Widzisz drogę prowadzącą na zachód i drzwi prowadzące na wschód.",
+   "type": "text"
+  },
+   {
+     "type": "itemCatcher",
+     "identifier": "c3",
+     "text": "Hej rycerzu!",
+     "options": {
+       "welcomeText": "Za tym małym otworem jest drzewo życia. Zmniejszę Cię, byś mógł się tam dostać i zebrać dla mnie owoce, a w zamian przepuszczę Cię dalej. \n Wchodzisz w to?",
+       "successText": "Przyjacielu, udało Ci się!",
+       "failText": "Wasza brać jest bezużyteczna",
+       "retryText": "Właź z powrotem do dziury!!!",
+       "witchImg": "assets/images/item-catcher/witch.png",
+       "gameSettings": {
+         "playerImg": "assets/images/item-catcher/apple_rat.png",
+         "backgroundImg": "assets/images/item-catcher/apple_tree.png",
+         "itemImg": "assets/images/item-catcher/apple.png",
+         "targetScore": 35,
+         "maxAttempts": 2
+       }
+     }
+   },
+  {
+   "identifier": "d2",
+   "options": {},
+   "text": "Schodzisz do małego pomieszczenia. Widzisz drzwi prowadzące na zachód. Możesz również udać się wgłąb pomieszczenia idąc na wschód",
+   "type": "text"
+  },
+  {
+   "identifier": "d3",
+   "options": {},
+   "text": "Jesteś w małym pomieszczeniu. Możesz iść na północ. Na południu widzisz handlarza",
+   "type": "text"
+  },
+  {
+   "identifier": "d4",
+   "options": {
+    "welcomeText": "Jaką potkę wariacie ?",
+    "assistantImg": "assets/images/shop/assistantImg.png",
+    "potions": [
+     {
+      "name": "Tree Shake Potion",
+      "description": "Mikstura optymalizująca rozmiar inventory poprzez usuwanie nieużywanych itemów",
+      "effects": [
+       "Redukcja masy",
+       "Szybkość chudego byka"
+      ],
+      "img": "assets/images/shop/potions/Icon25.png",
+      "price": 50
+     },
+     {
+      "name": "Async Await Attack",
+      "description": "Mocna mikstura ułatwiająca zarządzanie asynchronicznym atakiem.",
+      "effects": [
+       "Zwiększa wydajność ataku dwoma mieczami"
+      ],
+      "img": "assets/images/shop/potions/Icon43.png",
+      "price": 70
+     },
+     {
+      "name": "Kudos",
+      "description": "Boostuje zdolności i pewność siebie w ataku",
+      "effects": [
+       ""
+      ],
+      "img": "assets/images/shop/potions/Icon5.png",
+      "price": 100
+     }
+    ]
+   },
+   "text": "",
+   "type": "shop"
+  },
+  {
+   "identifier": "c3",
+   "options": {},
+   "text": "",
+   "type": ""
+  },
+  {
+   "identifier": "e3",
+   "options": {},
+   "text": "test",
+   "type": ""
+  }
+ ]
 }

@@ -11,6 +11,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   file_picker: 6.2.0
   provider: ^6.1.2
+  sensors_plus: ^2.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -23,3 +24,7 @@ flutter:
     - assets/images/shop/
     - assets/images/shop/potions/
     - assets/adventures/
+    - assets/images/equipment/
+    - assets/images/equipment/items/
+    - assets/config/
+    - assets/images/item-catcher/

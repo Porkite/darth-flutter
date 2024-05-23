@@ -2,6 +2,7 @@ import 'package:darth_flutter/game/paragraph-view-factory.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../service/game_manager.dart';
+import 'controls/floating-action-button.dart';
 import '../service/model/direction.dart';
 import 'equipment.dart';
 
@@ -79,10 +80,11 @@ class _GameState extends State<Game> {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(4.0),
-                  child: _buildDirectionButton(
-                    icon: Icons.arrow_circle_up,
-                    isBlocked: isBlocked,
-                    direction: Direction.NORTH,
+                  child: DarthFloatingActionButton(
+                    onPressed: () {
+                      setNewPositionByDirection(Direction.NORTH);
+                    },
+                    child: Icon(Icons.arrow_circle_up),
                   ),
                 ),
                 const SizedBox(width: 64),

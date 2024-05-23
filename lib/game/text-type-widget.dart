@@ -10,12 +10,6 @@ class TextTypeWidget extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        const Center(
-          child: CircleAvatar(
-            backgroundImage: AssetImage('assets/images/player_avatar.png'),
-            radius: 40,
-          ),
-        ),
         const SizedBox(height: 10),
         const Text(
           'Witaj w grze!',

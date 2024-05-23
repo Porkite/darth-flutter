@@ -1,7 +1,11 @@
 import 'package:darth_flutter/game/paragraph-view-factory.dart';
 import 'package:flutter/material.dart';
+
+import '../player/player-appbar-stats-widget.dart';
+import '../player/player.dart';
 import 'package:provider/provider.dart';
 import '../service/game_manager.dart';
+
 import 'controls/floating-action-button.dart';
 import '../service/model/direction.dart';
 import 'equipment.dart';
@@ -14,6 +18,16 @@ class Game extends StatefulWidget {
 }
 
 class _GameState extends State<Game> {
+  String playerPositionId = 'b2';
+  Player player = Player();
+
+  void setNewPositionByDirection(Direction direction) {
+    setState(() {
+      GameManager().changePlayerPosition(direction);
+      playerPositionId = GameManager().getPlayerPositionId();
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -39,6 +53,12 @@ class _GameState extends State<Game> {
     return Scaffold(
       backgroundColor: Colors.grey[900],
       appBar: AppBar(
+        backgroundColor: Colors.grey[850],
+        leading: Row(
+          children: [
+            PlayerAppBarStatsWidget(),
+          ],
+        ),
         title: Selector<GameManager, String>(
           selector: (_, gm) => gm.getPlayerPositionId(),
           builder: (_, positionId, __) => Text(
@@ -47,7 +67,6 @@ class _GameState extends State<Game> {
           ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.grey[850],
       ),
       body: Padding(
         padding: const EdgeInsets.all(30),

@@ -4,6 +4,7 @@ import 'package:darth_flutter/service/game_manager.dart';
 import 'package:darth_flutter/service/model/adventure_models.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../item_catcher/item-catcher-view.dart';
 import '../service/adventure_manager.dart';
 import '../shop/shop-view.dart';
 
@@ -23,6 +24,8 @@ class ParagraphViewFactory {
         return TextTypeWidget(text: paragraph.text);
       case 'shop':
         return ShopWidget(paragraph: paragraph);
+      case 'itemCatcher':
+        return ItemCatcherWidget(paragraph: paragraph);
       case 'error':
         return TextTypeWidget(text: paragraph.text);
       default:

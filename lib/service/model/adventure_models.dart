@@ -1,5 +1,11 @@
 import 'dart:convert';
 
+enum ParagraphType {
+  text,
+  itemCatcher,
+  shop
+}
+
 class MapData {
   final List<String> mapRows;
   final String fileNamesInSequence;
@@ -29,10 +35,10 @@ class MapData {
 }
 
 class Paragraph {
-  final String identifier;
-  final Map<String, dynamic> options;
-  final String text;
-  final String type;
+  String identifier;
+  Map<String, dynamic> options;
+  String text;
+  String type;
 
   Paragraph({
     required this.identifier,
@@ -56,6 +62,10 @@ class Paragraph {
     'text': text,
     'type': type,
   };
+
+  setType(ParagraphType type) {
+    this.type = type.toString().split('.').last;
+  }
 }
 
 class AdventureData {

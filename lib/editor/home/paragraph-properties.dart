@@ -1,3 +1,4 @@
+import 'package:darth_flutter/editor/home/paragraph-properties-editor.dart';
 import 'package:flutter/material.dart';
 
 import '../editor-manager.dart';
@@ -64,7 +65,9 @@ class _ParagraphPropertiesState extends State<ParagraphProperties> {
         body: TabBarView(
           children: [
             Center(
-              child: Text(EditorManager().selectedParagraphId),
+              child: ParagraphPropertiesEditorWidget(
+                  paragraph: EditorManager().getSelectedParagraph()
+              ),
             ),
             Center(
               child: Padding(

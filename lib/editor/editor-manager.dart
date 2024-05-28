@@ -17,7 +17,7 @@ class EditorManager {
     adventureData = parsedData;
   }
 
-  selectedParagraphAdventureDataJson() {
+  String selectedParagraphAdventureDataJson() {
     Paragraph paragraph = adventureData.paragraphs.firstWhere((paragraph) => paragraph.identifier == selectedParagraphId, orElse: () => Paragraph(identifier: selectedParagraphId, options: {}, text: '', type: ''));
     return JsonEncoder.withIndent(' ').convert(paragraph.toJson());
   }
@@ -26,7 +26,11 @@ class EditorManager {
     return JsonEncoder.withIndent(' ').convert(adventureData.toJson());
   }
 
-  getParagraph(String id) {
+  Paragraph getSelectedParagraph() {
+    return getParagraph(selectedParagraphId);
+  }
+
+  Paragraph getParagraph(String id) {
     Paragraph paragraph = adventureData.paragraphs.firstWhere((paragraph) => paragraph.identifier == id, orElse: () => Paragraph(identifier: selectedParagraphId, options: {}, text: '', type: ''));
     return paragraph;
   }

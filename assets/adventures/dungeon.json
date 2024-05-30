@@ -20,9 +20,12 @@
   },
   {
    "identifier": "c2",
-   "options": {},
-   "text": "Jesteś w podziemnym tunelu Ziomek!. Widzisz drogę prowadzącą na zachód i drzwi prowadzące na wschód.",
-   "type": "text"
+   "text": "Witamy w Darcie z Flutterow",
+   "type": "quizGame",
+   "options": {
+    "welcomeText": "Zagraj w quzie o zwyciestwo",
+    "npcImg": "Przyjacielu, udało Ci się!"
+    }
   },
    {
      "type": "itemCatcher",

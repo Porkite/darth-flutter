@@ -1,4 +1,5 @@
 import 'dart:ui';
+import '../service/game_manager.dart';
 import '../service/model/adventure_models.dart';
 
 import 'package:darth_flutter/quiz/quiz-game.dart';
@@ -65,9 +66,15 @@ class _QuizViewWidgetState extends State<QuizViewWidget> {
               MaterialPageRoute(builder: (context) => QuizGame()),
             );
           },
-          child: Text('O nie!!!'),
+          child: Text(_quiz.playButtonText),
         ),
-        Spacer(),
+        const SizedBox(height: 10),
+        ElevatedButton(
+          onPressed: () {
+            GameManager().rollbackPlayerPosition(3);
+          },
+          child: Text(_quiz.returnButtonText),
+        ),
       ],
     );
   }

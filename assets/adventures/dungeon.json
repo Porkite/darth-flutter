@@ -20,11 +20,13 @@
   },
   {
    "identifier": "c2",
-   "text": "Witamy w Darcie z Flutterow",
+   "text": "Witamy w recerskim turnieju quizowym",
    "type": "quizGame",
    "options": {
     "welcomeText": "Zagraj w quzie o zwyciestwo",
-    "npcImg": "Przyjacielu, udało Ci się!"
+    "playButtonText": "Zaczynajmy",
+    "returnButtonText": "Dziękuje, brzydzę się hazardem",
+    "npcImg": "assets/images/quiz-game/quiz-npc.png"
     }
   },
    {

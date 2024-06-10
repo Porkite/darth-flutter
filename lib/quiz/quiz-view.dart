@@ -1,10 +1,8 @@
-import 'dart:ui';
 import '../service/game_manager.dart';
 import '../service/model/adventure_models.dart';
 
 import 'package:darth_flutter/quiz/quiz-game.dart';
-import 'package:darth_flutter/quiz/quiz.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:darth_flutter/quiz/model/quiz.dart';
 import 'package:flutter/material.dart';
 
 class QuizViewWidget extends StatefulWidget {
@@ -13,20 +11,17 @@ class QuizViewWidget extends StatefulWidget {
   const QuizViewWidget({super.key, required this.paragraph});
 
   @override
-  _QuizViewWidgetState createState() => _QuizViewWidgetState();
+  QuizViewWidgetState createState() => QuizViewWidgetState();
 }
 
-class _QuizViewWidgetState extends State<QuizViewWidget> {
+class QuizViewWidgetState extends State<QuizViewWidget> {
   late Quiz _quiz;
-  late String _mainText;
-  late String _text;
 
   @override
   void initState() {
     super.initState();
     _quiz = Quiz.fromParagraph(widget.paragraph);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +58,10 @@ class _QuizViewWidgetState extends State<QuizViewWidget> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => QuizGame()),
+              MaterialPageRoute(
+                  builder: (context) => QuizGame(
+                        quiz: _quiz,
+                      )),
             );
           },
           child: Text(_quiz.playButtonText),
@@ -78,6 +76,4 @@ class _QuizViewWidgetState extends State<QuizViewWidget> {
       ],
     );
   }
-
-
 }

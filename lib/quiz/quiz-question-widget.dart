@@ -3,14 +3,19 @@ import 'model/question.dart';
 
 class QuizQuestion extends StatefulWidget {
   final Question question;
+  final bool debug;
   final Function(bool) answerQuestion;
-  QuizQuestion({required this.question, required this.answerQuestion});
+
+  QuizQuestion(
+      {required this.question,
+      required this.answerQuestion,
+      required this.debug});
 
   @override
-  _QuizQuestionState createState() => _QuizQuestionState();
+  QuizQuestionState createState() => QuizQuestionState();
 }
 
-class _QuizQuestionState extends State<QuizQuestion> {
+class QuizQuestionState extends State<QuizQuestion> {
   String selectedAnswer = "";
   bool isCorrect = false;
 
@@ -32,8 +37,8 @@ class _QuizQuestionState extends State<QuizQuestion> {
         return Column(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.all(20.0),
-              padding: EdgeInsets.all(10.0),
+              margin: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(10.0),
               decoration: BoxDecoration(
                 color: Colors.lightBlue[50],
                 border: Border.all(color: Colors.blueAccent),
@@ -41,7 +46,7 @@ class _QuizQuestionState extends State<QuizQuestion> {
               ),
               child: Text(
                 widget.question.question,
-                style: TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 16),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -61,13 +66,26 @@ class _QuizQuestionState extends State<QuizQuestion> {
                           setState(() {
                             selectedAnswer = entry.key;
                           });
-                          isCorrect = widget.question.correctAnswers['${entry.key}_correct'] == true;
+                          isCorrect = widget.question
+                                  .correctAnswers['${entry.key}_correct'] ==
+                              true;
                           widget.answerQuestion(isCorrect);
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: selectedAnswer != entry.key ? null : isCorrect ? Colors.green : Colors.red,
+                          backgroundColor: selectedAnswer != entry.key
+                              ? null
+                              : isCorrect
+                                  ? Colors.green
+                                  : Colors.red,
                         ),
-                        child: Text(entry.value! + (widget.question.correctAnswers['${entry.key}_correct'] == true? "t" : "")),
+                        child: Text(entry.value! +
+                            (widget.debug == true
+                                ? (widget.question.correctAnswers[
+                                            '${entry.key}_correct'] ==
+                                        true
+                                    ? " * "
+                                    : "")
+                                : "")),
                       ),
                     );
                   }).toList(),

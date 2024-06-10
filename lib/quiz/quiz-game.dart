@@ -1,57 +1,75 @@
+import 'package:darth_flutter/quiz/quiz-result-widget.dart';
+import 'package:darth_flutter/quiz/model/quiz.dart';
 import 'package:flutter/material.dart';
+import '../player/player.dart';
 import 'quiz-question-widget.dart';
-import 'quiz-result-widget.dart';
-import 'quiz-service.dart';
+import 'util/quiz-fetch-util.dart';
 import 'model/question.dart';
-import 'quiz-faild-widget.dart';
+import 'quiz-failed-widget.dart';
 
 class QuizGame extends StatefulWidget {
+  final Quiz _quiz;
+
+  const QuizGame({Key? key, required Quiz quiz})
+      : _quiz = quiz,
+        super(key: key);
+
   @override
   State<QuizGame> createState() => QuizGameState();
 }
 
 class QuizGameState extends State<QuizGame> {
   late Future<List<Question>> _quizFuture;
-  final QuizService _quizService = QuizService();
-  String mainText = "Quiz Game";
+
+  List<Question> questions = List.empty();
+  String mainText = "";
   int _currentQuestionIndex = 0;
   int _score = 0;
   bool? lastAnswerCorrect;
-  List<bool> _answeredCorrectly = [];
+  final List<bool> _answeredCorrectly = [];
 
   @override
   void initState() {
     super.initState();
-    _quizFuture = _quizService.fetchQuiz();
+    mainText = widget._quiz.firstQuestionText;
+    _quizFuture = QuizFetchUtil.fetchQuiz(widget._quiz.quizHttp);
   }
 
   void _answerQuestion(bool isCorrect) {
     lastAnswerCorrect = isCorrect;
     if (isCorrect) {
       setState(() {
-        this.mainText = "Brawo to jest poprawna odpowiedz";
+        mainText = widget._quiz.correctAnswerText;
         _answeredCorrectly.add(true);
       });
       Future.delayed(Duration(seconds: 3), () {
         setState(() {
-          _score++;
+          _score += 250;
           _currentQuestionIndex++;
-          this.mainText = "Kolejne pytanie";
+          this.mainText = widget._quiz.nextQuestionText;
         });
       });
+
+      if (_currentQuestionIndex == questions.length - 1) {
+        Player().addCoins(_score);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => QuizResult(_score, widget._quiz),
+          ),
+        );
+      }
     } else {
       setState(() {
-        this.mainText = "Zła odpowiedź";
+        this.mainText = widget._quiz.failAnswer;
         _answeredCorrectly.add(false);
-        Future.delayed(Duration(seconds: 3), () {
-          setState(() {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => QuizFailed(),
-              ),
-            );
-          });
+        Future.delayed(const Duration(seconds: 3), () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => QuizFailed(widget._quiz),
+            ),
+          );
         });
       });
     }
@@ -63,7 +81,7 @@ class QuizGameState extends State<QuizGame> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/quiz-game/quiz-background.png'),
+            image: AssetImage(widget._quiz.quizBackground),
             fit: BoxFit.cover,
           ),
         ),
@@ -71,18 +89,18 @@ class QuizGameState extends State<QuizGame> {
           future: _quizFuture,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
               return Center(child: Text('Error: ${snapshot.error}'));
             } else if (snapshot.hasData) {
-              List<Question> questions = snapshot.data!;
+              questions = snapshot.data!;
               return Stack(
                 children: <Widget>[
                   Positioned(
                     top: 10,
                     left: 10,
                     child: Container(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         color: Colors.lightBlue[50],
                         border: Border.all(color: Colors.blueAccent),
@@ -100,8 +118,8 @@ class QuizGameState extends State<QuizGame> {
                                 decoration: BoxDecoration(
                                   color: index < _answeredCorrectly.length
                                       ? _answeredCorrectly[index]
-                                      ? Colors.green
-                                      : Colors.red
+                                          ? Colors.green
+                                          : Colors.red
                                       : Colors.grey,
                                   border: Border.all(
                                     color: index == _currentQuestionIndex
@@ -116,7 +134,7 @@ class QuizGameState extends State<QuizGame> {
                                 padding: const EdgeInsets.only(left: 4.0),
                                 child: Text(
                                   '${(index + 1) * 250}',
-                                  style: TextStyle(fontSize: 12),
+                                  style: const TextStyle(fontSize: 12),
                                 ),
                               ),
                             ],
@@ -146,12 +164,12 @@ class QuizGameState extends State<QuizGame> {
                       ),
                       if (_currentQuestionIndex < questions.length)
                         const Spacer(),
-                        Expanded(
-                          child: QuizQuestion(
+                      Expanded(
+                        child: QuizQuestion(
                             question: questions[_currentQuestionIndex],
                             answerQuestion: _answerQuestion,
-                          ),
-                        ),
+                            debug: widget._quiz.debug),
+                      ),
                     ],
                   ),
                 ],

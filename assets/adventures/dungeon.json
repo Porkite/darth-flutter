@@ -23,13 +23,34 @@
    "text": "Witamy w recerskim turnieju quizowym",
    "type": "quizGame",
    "options": {
-    "welcomeText": "Zagraj w quzie o zwyciestwo",
-    "playButtonText": "Zaczynajmy",
-    "returnButtonText": "Dziękuje, brzydzę się hazardem",
-    "npcImg": "assets/images/quiz-game/quiz-npc.png"
-    }
+     "welcomeText": "Zagraj w quzie o zwyciestwo",
+     "quizBackground": "Zagraj w quzie o zwyciestwo",
+     "playButtonText": "Zaczynajmy",
+     "returnButtonText": "Dziękuje, brzydzę się hazardem",
+     "npcImg": "assets/images/quiz-game/quiz-npc.png",
+     "firstQuestionText": "Oto Twoje pierwsze pytanie",
+     "nextQuestionText": "Czas na kolejne pytanie",
+     "correctAnswerText": "Brawo, jest to poprawna odpowiedź",
+     "failAnswer": "Niestety, jest to zła odpowiedź",
+     "failBackground": "assets/images/quiz-game/fail-background.png",
+     "failText": "Przegrałeś, \n w nagrode pocieszenia dostajesz kopniaka",
+     "failButtonText": "Tylko nie mocno",
+     "failHpLose": 20,
+     "winBackground": "assets/images/quiz-game/win-background.png",
+     "winText": "Wygrałeś!!!",
+     "winTextButton": "Jestem bogaty!!!",
+     "winItems": "monet",
+     "debug": true,
+     "quizHttp": {
+       "apiUrl": "https://quizapi.io/api/v1/questions",
+       "apiKey": "P0caeBeQukpTAkc15r6aEcNVQfhNsIkYtHZqmIxA",
+       "difficulty": "easy",
+       "categories": ["Linux", "DevOps", "Networking", "Programming", "Cloud", "Docker", "Kubernetes"],
+       "questionNumb": 2
+     }
+   }
   },
-   {
+  {
      "type": "itemCatcher",
      "identifier": "c3",
      "text": "Hej rycerzu!",

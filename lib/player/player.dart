@@ -35,4 +35,10 @@ class Player extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  void addHp(int hp) {
+    this._hp = (_hp + hp).clamp(0, 100);
+    notifyListeners();
+  }
+
 }

@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'allowedMoves.dart';
 
 class MapData {
   final List<String> mapRows;
@@ -61,11 +61,12 @@ class Paragraph {
 class AdventureData {
   final MapData mapData;
   final List<Paragraph> paragraphs;
+  final List<String> paragraphIdentifiers;
 
   AdventureData({
     required this.mapData,
     required this.paragraphs,
-  });
+  }) : paragraphIdentifiers = paragraphs.map((p) => p.identifier).toList();
 
   factory AdventureData.fromJson(Map<String, dynamic> json) {
     return AdventureData(
@@ -85,4 +86,13 @@ class AdventureData {
     return paragraphs.firstWhere((element) => element.identifier == identifier,
     orElse: () => new Paragraph(identifier: '', options: {}, text: 'Jesteś w miejscu, w którym być nie powinieneś', type: 'error'));
   }
+
+  AllowedMoves getAllowedMovesById(String identifier){
+    bool north = paragraphIdentifiers.contains(identifier[0] + (int.parse(identifier[1]) - 1).toString());
+    bool south = paragraphIdentifiers.contains(identifier[0] + (int.parse(identifier[1]) + 1).toString());
+    bool east = paragraphIdentifiers.contains(String.fromCharCode(identifier.codeUnitAt(0) - 1) + identifier[1]);
+    bool west = paragraphIdentifiers.contains(String.fromCharCode(identifier.codeUnitAt(0) + 1) + identifier[1]);
+    return AllowedMoves(north: north, south: south, east: east, west: west);
+  }
+
 }

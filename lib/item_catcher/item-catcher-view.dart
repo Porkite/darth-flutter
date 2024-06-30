@@ -83,7 +83,7 @@ class _ItemCatcherView extends State<ItemCatcherWidget> {
         if (_gameState != GameState.lost && _gameState != GameState.victory)
           ElevatedButton(
             onPressed: () {
-              GameManager().rollbackPlayerPosition(3);
+              GameManager().rollbackPlayerPosition(1);
             },
             child: Text('Nie wejdę'),
           ),

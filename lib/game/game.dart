@@ -7,7 +7,6 @@ import '../player/player.dart';
 import 'package:provider/provider.dart';
 import '../service/game_manager.dart';
 
-import 'controls/floating-action-button.dart';
 import '../service/model/direction.dart';
 import 'equipment.dart';
 

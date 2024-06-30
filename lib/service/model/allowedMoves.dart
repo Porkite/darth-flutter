@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class AllowedMoves {
   final bool _north;
   final bool _south;

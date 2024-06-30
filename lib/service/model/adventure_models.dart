@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'allowedMoves.dart';
 
 class MapData {

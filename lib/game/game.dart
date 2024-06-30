@@ -1,4 +1,5 @@
 import 'package:darth_flutter/game/paragraph-view-factory.dart';
+import 'package:darth_flutter/service/model/allowedMoves.dart';
 import 'package:flutter/material.dart';
 
 import '../player/player-appbar-stats-widget.dart';
@@ -35,14 +36,14 @@ class _GameState extends State<Game> {
 
   Widget _buildDirectionButton({
     required IconData icon,
-    required bool isBlocked,
+    required bool isAllowed,
     required Direction direction,
   }) {
     return FloatingActionButton(
-      onPressed: isBlocked
-          ? null
-          : () => GameManager().changePlayerPosition(direction),
-      backgroundColor: isBlocked ? Colors.grey : null,
+      onPressed: isAllowed
+          ? () => GameManager().changePlayerPosition(direction)
+          : null,
+      backgroundColor: isAllowed ? null : Colors.grey,
       heroTag: direction.toString(),
       child: Icon(icon),
     );
@@ -54,7 +55,7 @@ class _GameState extends State<Game> {
       backgroundColor: Colors.grey[900],
       appBar: AppBar(
         backgroundColor: Colors.grey[850],
-        leading: Row(
+        flexibleSpace: Row(
           children: [
             PlayerAppBarStatsWidget(),
           ],
@@ -89,9 +90,9 @@ class _GameState extends State<Game> {
           },
         ),
       ),
-      floatingActionButton: Selector<GameManager, bool>(
-        selector: (_, gm) => gm.getBlockedMovement(),
-        builder: (_, isBlocked, __) => Column(
+      floatingActionButton: Selector<GameManager, AllowedMoves>(
+        selector: (_, gm) => gm.getAllowedMoves(),
+        builder: (_, allowedMoves, __) => Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             Row(
@@ -99,11 +100,10 @@ class _GameState extends State<Game> {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(4.0),
-                  child: DarthFloatingActionButton(
-                    onPressed: () {
-                      setNewPositionByDirection(Direction.NORTH);
-                    },
-                    child: Icon(Icons.arrow_circle_up),
+                  child: _buildDirectionButton(
+                    icon: Icons.arrow_circle_up,
+                    isAllowed: allowedMoves.north,
+                    direction: Direction.NORTH,
                   ),
                 ),
                 const SizedBox(width: 64),
@@ -120,7 +120,7 @@ class _GameState extends State<Game> {
                   padding: const EdgeInsets.all(4.0),
                   child: _buildDirectionButton(
                     icon: Icons.arrow_circle_left,
-                    isBlocked: isBlocked,
+                    isAllowed: allowedMoves.east,
                     direction: Direction.EAST,
                   ),
                 ),
@@ -128,7 +128,7 @@ class _GameState extends State<Game> {
                   padding: const EdgeInsets.all(4.0),
                   child: _buildDirectionButton(
                     icon: Icons.arrow_circle_down,
-                    isBlocked: isBlocked,
+                    isAllowed: allowedMoves.south,
                     direction: Direction.SOUTH,
                   ),
                 ),
@@ -136,7 +136,7 @@ class _GameState extends State<Game> {
                   padding: const EdgeInsets.all(4.0),
                   child: _buildDirectionButton(
                     icon: Icons.arrow_circle_right,
-                    isBlocked: isBlocked,
+                    isAllowed: allowedMoves.west,
                     direction: Direction.WEST,
                   ),
                 ),

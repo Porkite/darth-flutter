@@ -4,6 +4,7 @@ import 'package:darth_flutter/quiz/quiz-game.dart';
 import 'package:darth_flutter/quiz/quiz-view.dart';
 import 'package:darth_flutter/service/game_manager.dart';
 import 'package:darth_flutter/service/model/adventure_models.dart';
+import 'package:darth_flutter/service/model/allowedMoves.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../item_catcher/item-catcher-view.dart';
@@ -17,6 +18,8 @@ class ParagraphViewFactory {
     }
     AdventureData adventureData = await AdventureManager().getAdventure();
     Paragraph paragraph = adventureData.getParagraphById(identifier);
+    AllowedMoves allowedMoves = adventureData.getAllowedMovesById(identifier);
+    GameManager().setAllowedMoves(allowedMoves);
     return _getWidgetByType(paragraph);
   }
 
@@ -33,7 +36,7 @@ class ParagraphViewFactory {
       case 'error':
         return TextTypeWidget(text: paragraph.text);
       default:
-        return SizedBox();
+        return const SizedBox();
     }
   }
 }

@@ -69,7 +69,7 @@ class QuizViewWidgetState extends State<QuizViewWidget> {
         const SizedBox(height: 10),
         ElevatedButton(
           onPressed: () {
-            GameManager().rollbackPlayerPosition(3);
+            GameManager().rollbackPlayerPosition(1);
           },
           child: Text(_quiz.returnButtonText),
         ),

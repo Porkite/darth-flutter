@@ -1,5 +1,6 @@
 enum ParagraphType{
   text,
   shop,
-  itemCatcher
+  itemCatcher,
+  quizGame
 }

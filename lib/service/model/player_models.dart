@@ -3,12 +3,14 @@ import 'dart:collection';
 import 'package:darth_flutter/service/model/coordinates.dart';
 import 'package:darth_flutter/service/model/equipment_state.dart';
 
+import 'allowedMoves.dart';
 import 'direction.dart';
 
 class Player {
   final Queue<Coordinates> coordinatesQueue = Queue<Coordinates>();
   final EquipmentState equipment;
   bool blockedMovement = false;
+  AllowedMoves allowedMoves = AllowedMoves(north: true, south: true, east: true, west: true);
 
   Player(coordinates, this.equipment) {
     coordinatesQueue.add(coordinates);
@@ -49,7 +51,16 @@ class Player {
   }
 
   void setBlockedMovement(bool blockMovement) {
+    allowedMoves = AllowedMoves(north: false, south: false, east: false, west: false);
     blockedMovement = blockMovement;
+  }
+
+  AllowedMoves getAllowedMoves() {
+    return allowedMoves;
+  }
+
+  void setAllowedMoves(AllowedMoves allowedMoves) {
+    this.allowedMoves = allowedMoves;
   }
 
   bool getBlockedMovement() {

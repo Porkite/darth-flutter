@@ -1,12 +1,12 @@
 class Question {
   final int id;
   final String question;
-  final String? description;  // Może być null
+  final String? description;
   final Map<String, String?> answers;
   final bool multipleCorrectAnswers;
   final Map<String, bool> correctAnswers;
-  final String? explanation;  // Może być null
-  final String? tip;  // Może być null
+  final String? explanation;
+  final String? tip;
   final List<dynamic> tags;
   final String category;
   final String difficulty;

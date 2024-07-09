@@ -2,6 +2,7 @@ import 'package:darth_flutter/service/model/coordinates.dart';
 import 'package:darth_flutter/service/model/equipment_state.dart';
 import 'package:flutter/cupertino.dart';
 
+import 'model/allowedMoves.dart';
 import 'model/direction.dart';
 import 'model/player_models.dart';
 
@@ -44,4 +45,14 @@ class GameManager with ChangeNotifier {
   EquipmentState getPlayerEquipment() {
     return player.getPlayerEquipment();
   }
+
+  void setAllowedMoves(AllowedMoves allowedMoves) {
+    player.allowedMoves = allowedMoves;
+    notifyListeners();
+  }
+
+  AllowedMoves getAllowedMoves() {
+    return player.getAllowedMoves();
+  }
+
 }

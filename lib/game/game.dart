@@ -1,6 +1,7 @@
 import 'package:darth_flutter/game/paragraph-view-factory.dart';
 import 'package:darth_flutter/service/model/allowedMoves.dart';
 import 'package:flutter/material.dart';
+import 'package:tuple/tuple.dart';
 
 import '../player/player-appbar-stats-widget.dart';
 import '../player/player.dart';
@@ -8,6 +9,7 @@ import 'package:provider/provider.dart';
 import '../service/game_manager.dart';
 
 import '../service/model/direction.dart';
+import 'controls/floating-action-button.dart';
 import 'equipment.dart';
 
 class Game extends StatefulWidget {
@@ -89,61 +91,93 @@ class _GameState extends State<Game> {
           },
         ),
       ),
-      floatingActionButton: Selector<GameManager, AllowedMoves>(
-        selector: (_, gm) => gm.getAllowedMoves(),
-        builder: (_, allowedMoves, __) => Column(
+      floatingActionButton: Selector<GameManager, Tuple2<AllowedMoves, bool>>(
+        selector: (_, gm) =>
+            Tuple2(gm.getAllowedMoves(), gm.getBlockedMovement()),
+        builder: (_, navigationConf, __) => Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: _buildDirectionButton(
-                    icon: Icons.arrow_circle_up,
-                    isAllowed: allowedMoves.north,
-                    direction: Direction.NORTH,
+            if (!navigationConf.item2)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: _buildDirectionButton(
+                      icon: Icons.arrow_circle_up,
+                      isAllowed: navigationConf.item1.north,
+                      direction: Direction.NORTH,
+                    ),
                   ),
-                ),
-                const SizedBox(width: 64),
-              ],
-            ),
+                  const SizedBox(width: 64),
+                ],
+              ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Padding(
                     padding: const EdgeInsets.only(left: 30),
                     child: EquipmentButton.getEquipmentButton(setState)),
+                Padding(
+                    padding: const EdgeInsets.only(left: 4),
+                    child: MinimapButton.getMinimapButton(setState)),
                 const Spacer(),
-                Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: _buildDirectionButton(
-                    icon: Icons.arrow_circle_left,
-                    isAllowed: allowedMoves.east,
-                    direction: Direction.EAST,
+                if (!navigationConf.item2)
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: _buildDirectionButton(
+                      icon: Icons.arrow_circle_left,
+                      isAllowed: navigationConf.item1.east,
+                      direction: Direction.EAST,
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: _buildDirectionButton(
-                    icon: Icons.arrow_circle_down,
-                    isAllowed: allowedMoves.south,
-                    direction: Direction.SOUTH,
+                if (!navigationConf.item2)
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: _buildDirectionButton(
+                      icon: Icons.arrow_circle_down,
+                      isAllowed: navigationConf.item1.south,
+                      direction: Direction.SOUTH,
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: _buildDirectionButton(
-                    icon: Icons.arrow_circle_right,
-                    isAllowed: allowedMoves.west,
-                    direction: Direction.WEST,
+                if (!navigationConf.item2)
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: _buildDirectionButton(
+                      icon: Icons.arrow_circle_right,
+                      isAllowed: navigationConf.item1.west,
+                      direction: Direction.WEST,
+                    ),
                   ),
-                ),
               ],
             ),
           ],
         ),
       ),
     );
+  }
+}
+
+class MinimapButton {
+  static Widget getMinimapButton(Function setState) {
+    var closeButton = DarthFloatingActionButton(
+      onPressed: () {
+        setState(() {
+          GameManager().closeMiniMap();
+        });
+      },
+      child: const Icon(Icons.zoom_in_map),
+    );
+
+    var openButton = DarthFloatingActionButton(
+      onPressed: () {
+        setState(() {
+          GameManager().openMiniMap();
+        });
+      },
+      child: const Icon(Icons.map),
+    );
+
+    return GameManager().getMinimapOpen() ? closeButton : openButton;
   }
 }

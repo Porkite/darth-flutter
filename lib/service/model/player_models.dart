@@ -10,6 +10,7 @@ class Player {
   final Queue<Coordinates> coordinatesQueue = Queue<Coordinates>();
   final EquipmentState equipment;
   bool blockedMovement = false;
+  bool _minimapOpen = false;
   AllowedMoves allowedMoves = AllowedMoves(north: true, south: true, east: true, west: true);
 
   Player(coordinates, this.equipment) {
@@ -69,5 +70,17 @@ class Player {
 
   EquipmentState getPlayerEquipment() {
     return equipment;
+  }
+
+  bool getMinimapOpen(){
+    return _minimapOpen;
+  }
+
+  void openMiniMap() {
+    _minimapOpen = true;
+  }
+
+  void closeMiniMap() {
+    _minimapOpen = false;
   }
 }

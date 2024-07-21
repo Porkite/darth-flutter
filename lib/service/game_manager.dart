@@ -55,4 +55,18 @@ class GameManager with ChangeNotifier {
     return player.getAllowedMoves();
   }
 
+  bool getMinimapOpen(){
+    return player.getMinimapOpen();
+  }
+
+  void openMiniMap() {
+    player.setBlockedMovement(true);
+    player.openMiniMap();
+  }
+
+  void closeMiniMap() {
+    player.setBlockedMovement(false);
+    player.closeMiniMap();
+  }
+
 }

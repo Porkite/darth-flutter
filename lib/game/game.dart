@@ -76,7 +76,7 @@ class _GameState extends State<Game> {
           selector: (_, gm) => gm.getPlayerPositionId(),
           builder: (context, positionId, __) {
             return FutureBuilder<Widget>(
-              future: ParagraphViewFactory.buildParagraphViewByIdentifier(
+              future: ParagraphViewFactory.buildParagraphViewByIdentifier(context,
                   positionId),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -116,10 +116,10 @@ class _GameState extends State<Game> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Padding(
-                    padding: const EdgeInsets.only(left: 30),
+                    padding: const EdgeInsets.only(left: 30, bottom:  4.0),
                     child: EquipmentButton.getEquipmentButton(setState)),
                 Padding(
-                    padding: const EdgeInsets.only(left: 4),
+                    padding: const EdgeInsets.all(4.0),
                     child: MinimapButton.getMinimapButton(setState)),
                 const Spacer(),
                 if (!navigationConf.item2)

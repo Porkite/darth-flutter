@@ -33,7 +33,7 @@
         "successText": "Przyjacielu, udało Ci się!",
         "failText": "Wasza brać jest bezużyteczna",
         "retryText": "Właź z powrotem do dziury!!!",
-        "witchImg": "assets/images/item-catcher/witch.png",
+        "npcImg": "assets/images/item-catcher/witch.png",
         "gameSettings": {
           "playerImg": "assets/images/item-catcher/apple_rat.png",
           "backgroundImg": "assets/images/item-catcher/apple_tree.png",
@@ -99,7 +99,7 @@
       "identifier": "d4",
       "options": {
         "welcomeText": "Jaką potkę wariacie ?",
-        "assistantImg": "assets/images/shop/assistantImg.png",
+        "npcImg": "assets/images/shop/assistantImg.png",
         "potions": [
           {
             "name": "Tree Shake Potion",

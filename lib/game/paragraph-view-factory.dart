@@ -6,18 +6,19 @@ import 'package:darth_flutter/service/game_manager.dart';
 import 'package:darth_flutter/service/model/adventure_models.dart';
 import 'package:darth_flutter/service/model/allowedMoves.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 
 import '../item_catcher/item-catcher-view.dart';
 import '../service/adventure_manager.dart';
 import '../shop/shop-view.dart';
 
 class ParagraphViewFactory {
-  static Future<Widget> buildParagraphViewByIdentifier(String identifier) async {
-    AdventureData adventureData = await AdventureManager().getAdventure();
+  static Future<Widget> buildParagraphViewByIdentifier(BuildContext context, String identifier) async {
+    AdventureData adventureData = await Provider.of<AdventureManager>(context, listen: false).getAdventure();
     if (GameManager().getPlayerEquipment().isOpen()) {
       return const EquipmentWidget();
     } else if (GameManager.player.getMinimapOpen()) {
-      return MinimapWidget(paragraphIdentifiers: adventureData.paragraphIdentifiers);
+      return const MinimapWidget();
     }
     Paragraph paragraph = adventureData.getParagraphById(identifier);
     AllowedMoves allowedMoves = adventureData.getAllowedMovesById(identifier);

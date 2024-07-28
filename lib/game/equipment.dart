@@ -99,6 +99,7 @@ class EquipmentButton {
     var closeButton = DarthFloatingActionButton(
       onPressed: () {
         setState(() {
+          GameManager().setBlockMovement(false);
           playerEquipment.close();
         });
       },
@@ -108,6 +109,7 @@ class EquipmentButton {
     var openButton = DarthFloatingActionButton(
       onPressed: () {
         setState(() {
+          GameManager().setBlockMovement(true);
           playerEquipment.open();
         });
       },

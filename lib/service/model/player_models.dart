@@ -35,6 +35,10 @@ class Player {
     }
   }
 
+  void setPlayerPosition(Coordinates newPosition){
+    coordinatesQueue.addFirst(newPosition);
+  }
+
   String getPlayerPositionId() {
     return coordinatesQueue.first.x + coordinatesQueue.first.y;
   }

@@ -22,6 +22,13 @@ class GameManager with ChangeNotifier {
     notifyListeners();
   }
 
+  void setPlayerPosition(String positionId){
+    player.setPlayerPosition(Coordinates(positionId[0], positionId[1]));
+    player.closeMiniMap();
+    player.setBlockedMovement(false);
+    notifyListeners();
+  }
+
   void rollbackPlayerPosition(int moves){
     player.rollbackMoves(moves);
     notifyListeners();

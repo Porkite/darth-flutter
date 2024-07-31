@@ -1,9 +1,26 @@
 class MapCell {
-  final int xPos;
-  final int yPos;
-  final String key;
-  final String description;
-  final String? npcImg;
+  final int _xPos;
+  final int _yPos;
+  final String _key;
+  final String _description;
+  final String? _npcImg;
 
-  MapCell({required this.xPos, required this.yPos, required this.key, required this.description, this.npcImg});
+  MapCell({
+    required int xPos,
+    required int yPos,
+    required String key,
+    required String description,
+    String? npcImg,
+  })  : _xPos = xPos,
+        _yPos = yPos,
+        _key = key,
+        _description = description,
+        _npcImg = npcImg;
+
+  // Getters
+  int get xPos => _xPos;
+  int get yPos => _yPos;
+  String get key => _key;
+  String get description => _description;
+  String? get npcImg => _npcImg;
 }

@@ -24,35 +24,11 @@ class MinimapService {
     }
   }
 
-  int countRows(List<String> identifiers) {
-    final Set<String> uniqueLetters = {};
-    for (var id in identifiers) {
-      if (id.isNotEmpty) {
-        uniqueLetters.add(id[1]);
-      }
-    }
-    return uniqueLetters.length;
-  }
-
-  int countColumns(List<String> identifiers) {
-    int maxNumber = 0;
-    for (var id in identifiers) {
-      String numberPart = id.substring(1);
-      if (numberPart.isNotEmpty) {
-        int number = int.parse(numberPart);
-        if (number > maxNumber) {
-          maxNumber = number;
-        }
-      }
-    }
-    return maxNumber;
-  }
-
   Tuple5<List<MapCell>, int, int, int, int> mapToCells(
       AdventureData adventureData) {
     List<MapCell> map = [];
-    int minX = 9999999; // Initialize with a large integer value
-    int minY = 9999999; // Initialize with a large integer value
+    int minX = 9999999;
+    int minY = 9999999;
     int maxX = 0;
     int maxY = 0;
 

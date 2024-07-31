@@ -1,5 +1,6 @@
 import 'package:darth_flutter/service/model/coordinates.dart';
 import 'package:darth_flutter/service/model/equipment_state.dart';
+import 'package:darth_flutter/service/model/special-widget.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'model/allowedMoves.dart';
@@ -60,6 +61,22 @@ class GameManager with ChangeNotifier {
 
   AllowedMoves getAllowedMoves() {
     return player.getAllowedMoves();
+  }
+
+  SpecialWidget? getOpenedSpecialWidget() {
+    return player.getOpenedSpecialWidget();
+  }
+
+  bool getEquipmentOpen() {
+     return player.getEquipmentOpen();
+  }
+
+  void openEquipment() {
+    player.openEquipment();
+  }
+
+  void closeEquipment() {
+    player.closeEquipment();
   }
 
   bool getMinimapOpen(){

@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:darth_flutter/service/model/coordinates.dart';
 import 'package:darth_flutter/service/model/equipment_state.dart';
+import 'package:darth_flutter/service/model/special-widget.dart';
 
 import 'allowedMoves.dart';
 import 'direction.dart';
@@ -10,7 +11,7 @@ class Player {
   final Queue<Coordinates> coordinatesQueue = Queue<Coordinates>();
   final EquipmentState equipment;
   bool blockedMovement = false;
-  bool _minimapOpen = false;
+  SpecialWidget? _openedSpecialWidget;
   AllowedMoves allowedMoves = AllowedMoves(north: true, south: true, east: true, west: true);
 
   Player(coordinates, this.equipment) {
@@ -76,15 +77,31 @@ class Player {
     return equipment;
   }
 
+  bool getEquipmentOpen() {
+    return _openedSpecialWidget == SpecialWidget.equipment;
+  }
+
+  void openEquipment() {
+    _openedSpecialWidget = SpecialWidget.equipment;
+  }
+
+  void closeEquipment() {
+    _openedSpecialWidget = null;
+  }
+
   bool getMinimapOpen(){
-    return _minimapOpen;
+    return _openedSpecialWidget == SpecialWidget.minimap;
   }
 
   void openMiniMap() {
-    _minimapOpen = true;
+    _openedSpecialWidget = SpecialWidget.minimap;
   }
 
   void closeMiniMap() {
-    _minimapOpen = false;
+    _openedSpecialWidget = null;
+  }
+
+  SpecialWidget? getOpenedSpecialWidget() {
+    return _openedSpecialWidget;
   }
 }

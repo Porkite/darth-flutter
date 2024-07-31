@@ -1,5 +1,6 @@
 import 'package:darth_flutter/game/paragraph-view-factory.dart';
 import 'package:darth_flutter/service/model/allowedMoves.dart';
+import 'package:darth_flutter/service/model/special-widget.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 
@@ -91,9 +92,10 @@ class _GameState extends State<Game> {
           },
         ),
       ),
-      floatingActionButton: Selector<GameManager, Tuple2<AllowedMoves, bool>>(
-        selector: (_, gm) =>
-            Tuple2(gm.getAllowedMoves(), gm.getBlockedMovement()),
+      floatingActionButton:
+          Selector<GameManager, Tuple3<AllowedMoves, bool, SpecialWidget?>>(
+        selector: (_, gm) => Tuple3(gm.getAllowedMoves(),
+            gm.getBlockedMovement(), gm.getOpenedSpecialWidget()),
         builder: (_, navigationConf, __) => Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
@@ -115,12 +117,15 @@ class _GameState extends State<Game> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Padding(
-                    padding: const EdgeInsets.only(left: 30, bottom:  4.0),
-                    child: EquipmentButton.getEquipmentButton(setState)),
-                Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: MinimapButton.getMinimapButton(setState)),
+                const Padding(padding: EdgeInsets.only(left: 30)),
+                if (navigationConf.item3 != SpecialWidget.minimap)
+                  Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: EquipmentButton.getEquipmentButton(setState)),
+                if (navigationConf.item3 != SpecialWidget.equipment)
+                  Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: MinimapButton.getMinimapButton(setState)),
                 const Spacer(),
                 if (!navigationConf.item2)
                   Padding(

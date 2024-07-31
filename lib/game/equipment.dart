@@ -94,13 +94,12 @@ class ItemWidget extends StatelessWidget {
 
 class EquipmentButton {
   static Widget getEquipmentButton(Function setState) {
-    var playerEquipment = GameManager().getPlayerEquipment();
 
     var closeButton = DarthFloatingActionButton(
       onPressed: () {
         setState(() {
           GameManager().setBlockMovement(false);
-          playerEquipment.close();
+          GameManager().closeEquipment();
         });
       },
       child: const Icon(Icons.no_backpack),
@@ -110,12 +109,12 @@ class EquipmentButton {
       onPressed: () {
         setState(() {
           GameManager().setBlockMovement(true);
-          playerEquipment.open();
+          GameManager().openEquipment();
         });
       },
       child: const Icon(Icons.shopping_bag),
     );
 
-    return playerEquipment.isOpen() ? closeButton : openButton;
+    return GameManager().getEquipmentOpen() ? closeButton : openButton;
   }
 }

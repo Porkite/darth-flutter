@@ -16,10 +16,6 @@ class MinimapWidget extends StatefulWidget {
 }
 
 class _MinimapWidgetState extends State<MinimapWidget> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,18 +49,20 @@ class _MinimapWidgetState extends State<MinimapWidget> {
             return const SizedBox.shrink();
           }
 
-          Color borderColor =
-              cell.key == playerPositionId ? Colors.green : Colors.black;
           return GestureDetector(
             onTap: () {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
+                    backgroundColor: Colors.black87,
                     content: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(cell.description),
+                        Text(
+                          cell.description,
+                          style: const TextStyle(color: Colors.white60),
+                        ),
                         const SizedBox(height: 20),
                         const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -72,7 +70,9 @@ class _MinimapWidgetState extends State<MinimapWidget> {
                             Expanded(
                                 child: SingleChildScrollView(
                               child: Text(
-                                  'Uber w to miejsce bedzie cię kosztować 30 monet'),
+                                'Uber w to miejsce bedzie cię kosztować 30 monet',
+                                style: TextStyle(color: Colors.white60),
+                              ),
                             ))
                           ],
                         ),
@@ -106,14 +106,14 @@ class _MinimapWidgetState extends State<MinimapWidget> {
                 return Container(
                   margin: EdgeInsets.all(cellMargin),
                   decoration: BoxDecoration(
-                    border: Border.all(color: borderColor, width: 1),
-                    color: Colors.blueGrey.withOpacity(0.7),
+                    border: Border.all(color: cell.key == playerPositionId ? Colors.green : Colors.white38, width: 1),
+                    color: Colors.black54,
                     borderRadius: BorderRadius.circular(10),
                     boxShadow: [
                       BoxShadow(
                         color: cell.key == playerPositionId
-                            ? Colors.green.withOpacity(1)
-                            : Colors.black.withOpacity(0.5),
+                            ? Colors.green
+                            : Colors.black,
                         spreadRadius: 3,
                         blurRadius: 15,
                         offset: const Offset(2, 2),

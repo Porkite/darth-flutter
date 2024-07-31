@@ -1,6 +1,6 @@
 import 'package:darth_flutter/game/equipment.dart';
 import 'package:darth_flutter/game/text-type-widget.dart';
-import 'package:darth_flutter/map/minimap.dart';
+import 'package:darth_flutter/map/minimap-widget.dart';
 import 'package:darth_flutter/quiz/quiz-view.dart';
 import 'package:darth_flutter/service/game_manager.dart';
 import 'package:darth_flutter/service/model/adventure_models.dart';
@@ -15,7 +15,7 @@ import '../shop/shop-view.dart';
 class ParagraphViewFactory {
   static Future<Widget> buildParagraphViewByIdentifier(BuildContext context, String identifier) async {
     AdventureData adventureData = await Provider.of<AdventureManager>(context, listen: false).getAdventure();
-    if (GameManager().getPlayerEquipment().isOpen()) {
+    if (GameManager().getEquipmentOpen()) {
       return const EquipmentWidget();
     } else if (GameManager.player.getMinimapOpen()) {
       return const MinimapWidget();

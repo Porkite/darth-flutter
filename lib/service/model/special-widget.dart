@@ -1,0 +1,4 @@
+enum SpecialWidget{
+  equipment,
+  minimap
+}

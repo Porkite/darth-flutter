@@ -48,7 +48,7 @@ class _ItemCatcherView extends State<ItemCatcherWidget> {
       children: [
         Center(
           child: CircleAvatar(
-            backgroundImage: AssetImage(_itemCatcher.witchImg),
+            backgroundImage: AssetImage(_itemCatcher.npcImg),
             radius: 40,
           ),
         ),

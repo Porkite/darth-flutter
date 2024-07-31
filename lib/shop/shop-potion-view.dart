@@ -49,7 +49,7 @@ class _ShopPotionView extends State<ShopPotionWidget> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               CircleAvatar(
-                backgroundImage: AssetImage(_shop.assistantImg),
+                backgroundImage: AssetImage(_shop.npcImg),
                 radius: 40,
               ),
               Padding(

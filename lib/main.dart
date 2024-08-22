@@ -1,6 +1,7 @@
 import 'package:darth_flutter/game/game.dart';
 import 'package:darth_flutter/home/home.dart';
 import 'package:darth_flutter/player/player.dart';
+import 'package:darth_flutter/rat-fight/rat-fight-service.dart';
 import 'package:darth_flutter/rat-fight/rat-fight-widget.dart';
 import 'package:darth_flutter/service/adventure_manager.dart';
 import 'package:darth_flutter/service/game_manager.dart';
@@ -15,6 +16,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (context) => Player()),
         ChangeNotifierProvider(create: (context) => GameManager()),
+        ChangeNotifierProvider(create: (_) => RatFightService()),
         Provider<MinimapService>(
           create: (_) => MinimapService(),
         ),

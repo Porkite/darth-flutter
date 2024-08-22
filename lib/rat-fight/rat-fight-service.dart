@@ -5,6 +5,7 @@ import 'package:one_dollar_unistroke_recognizer/one_dollar_unistroke_recognizer.
 
 class RatFightService with ChangeNotifier {
   Timer? _timer;
+  Timer? _attackTimer;
   double _leftPosition = 0;
   double _topPosition = 0;
   bool _showDamage = false;
@@ -13,19 +14,28 @@ class RatFightService with ChangeNotifier {
   int fighterSize = 100;
   int health = 100;
   bool _swipeDetected = false;
+  bool _isFlashing = false;
   final List<Offset> _swipePath = [];
   bool _initialized = false;
   late BuildContext _context;
 
-
   double get leftPosition => _leftPosition;
+
   double get topPosition => _topPosition;
+
   bool get showDamage => _showDamage;
+
   int get damageScore => _damageScore;
+
   Offset? get damagePosition => _damagePosition;
+
   int get playerHealth => health;
+
   List<Offset> get swipePath => List.unmodifiable(_swipePath);
+
   bool get isSwipeDetected => _swipeDetected;
+
+  bool get isFlashing => _isFlashing;
 
   void initialize(BuildContext context) {
     if (!_initialized) {
@@ -33,11 +43,28 @@ class RatFightService with ChangeNotifier {
       _moveToRandomPosition();
       _initialized = true;
       _startMovingEnemy();
+      _startAttackTimer();
     }
   }
 
   void _startMovingEnemy() {
     _setNextMove();
+  }
+
+  void _startAttackTimer() {
+    _attackTimer = Timer.periodic(const Duration(seconds: 5), (timer) {
+      _triggerFlashing();
+    });
+  }
+
+  void _triggerFlashing() {
+    _isFlashing = true;
+    notifyListeners();
+
+    Timer(const Duration(seconds: 1), () {
+      _isFlashing = false;
+      notifyListeners();
+    });
   }
 
   void _setNextMove() {
@@ -72,21 +99,12 @@ class RatFightService with ChangeNotifier {
 
   void handleSwipe(Offset position) {
     if (_isSwipeIntersecting(position)) {
-      _showDamage = true;
-      _damageScore = 5;
-      _damagePosition = Offset(_leftPosition, _topPosition);
-      health = max(0, health - 5);
-      _swipeDetected = true;
-      notifyListeners();
-
-      Timer(Duration(seconds: 1), () {
-        _showDamage = false;
-        notifyListeners();
-      });
+      _applyDamage(5);
     }
   }
 
-  void handleGesture(List<Offset> points, RecognizedUnistroke? recognizedUnistroke) {
+  void handleGesture(
+      List<Offset> points, RecognizedUnistroke? recognizedUnistroke) {
     if (recognizedUnistroke != null) {
       if (recognizedUnistroke.name == DefaultUnistrokeNames.circle) {
         _applyDamage(10);

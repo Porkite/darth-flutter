@@ -15,6 +15,7 @@ dependencies:
   http: ^0.13.4
   tuple: ^2.0.0
   collection: ^1.16.0
+  one_dollar_unistroke_recognizer: ^1.3.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -33,4 +34,4 @@ flutter:
     - assets/images/item-catcher/
     - assets/images/quiz-game/
     - assets/images/minimap/
-
+    - assets/images/rat-fighter/

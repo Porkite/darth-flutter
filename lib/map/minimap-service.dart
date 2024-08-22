@@ -11,7 +11,6 @@ class MinimapService {
   late final int _maxX;
   late final int _maxY;
 
-
   void initialize(AdventureData adventureData) {
     try {
       var mappedRes = mapToCells(adventureData);

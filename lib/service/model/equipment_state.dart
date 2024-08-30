@@ -12,7 +12,6 @@ class EquipmentItem {
 }
 
 class EquipmentState {
-  bool _isOpen = false;
   static final List<EquipmentItem> initialItems = [EquipmentItem("pretzel")];
   final List<EquipmentItem> _items = [];
 
@@ -22,18 +21,6 @@ class EquipmentState {
     var equipmentState = EquipmentState._();
     equipmentState._items.addAll(initialItems);
     return equipmentState;
-  }
-
-  void open() {
-    _isOpen = true;
-  }
-
-  void close() {
-    _isOpen = false;
-  }
-
-  bool isOpen() {
-    return _isOpen;
   }
 
   void addItem(EquipmentItem item) {

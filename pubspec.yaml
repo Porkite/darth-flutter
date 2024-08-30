@@ -13,6 +13,8 @@ dependencies:
   provider: ^6.1.2
   sensors_plus: ^2.0.0
   http: ^0.13.4
+  tuple: ^2.0.0
+  collection: ^1.16.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -30,4 +32,5 @@ flutter:
     - assets/config/
     - assets/images/item-catcher/
     - assets/images/quiz-game/
+    - assets/images/minimap/
 

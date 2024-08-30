@@ -5,23 +5,23 @@ import '../service/model/adventure_models.dart';
 class Shop {
   final String _welcomeText;
   final List<Potion> _potions;
-  final String _assistantImg;
+  final String _npcImg;
 
-  Shop(this._welcomeText, this._potions, this._assistantImg);
+  Shop(this._welcomeText, this._potions, this._npcImg);
 
   String get welcomeText => _welcomeText;
 
   List<Potion> get potions => _potions;
 
-  String get assistantImg => _assistantImg;
+  String get npcImg => _npcImg;
 
   factory Shop.fromParagraph(Paragraph paragraph) {
     final shopData = paragraph.options;
     final welcomeText = shopData['welcomeText'];
-    final assistantImg = shopData['assistantImg'];
+    final npcImg = shopData['npcImg'];
     final potions = List<Potion>.from(
         shopData['potions'].map((potion) => Potion.fromJson(potion)));
 
-    return Shop(welcomeText, potions, assistantImg);
+    return Shop(welcomeText, potions, npcImg);
   }
 }

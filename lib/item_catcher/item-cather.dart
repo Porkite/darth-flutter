@@ -3,19 +3,19 @@ import 'game-settings.dart';
 
 class ItemCatcher {
   final String _welcomeText;
-  final String _witchImg;
+  final String _npcImg;
   final String _successText;
   final String _retryText;
   final String _failText;
 
   final GameSettings _gameSettings;
 
-  ItemCatcher(this._welcomeText, this._witchImg, this._gameSettings,
+  ItemCatcher(this._welcomeText, this._npcImg, this._gameSettings,
       this._successText, this._retryText, this._failText);
 
   String get welcomeText => _welcomeText;
 
-  String get witchImg => _witchImg;
+  String get npcImg => _npcImg;
 
   String get successText => _successText;
 
@@ -28,7 +28,7 @@ class ItemCatcher {
   factory ItemCatcher.fromParagraph(Paragraph paragraph) {
     final itemCatcherDAta = paragraph.options;
     final welcomeText = itemCatcherDAta['welcomeText'];
-    final witchImg = itemCatcherDAta['witchImg'];
+    final npcImg = itemCatcherDAta['npcImg'];
     final successText = itemCatcherDAta['successText'];
     final retryText = itemCatcherDAta['retryText'];
     final failText = itemCatcherDAta['failText'];
@@ -36,6 +36,6 @@ class ItemCatcher {
     final gameSettings = GameSettings.fromJson(itemCatcherDAta['gameSettings']);
 
     return ItemCatcher(
-        welcomeText, witchImg, gameSettings, successText, retryText, failText);
+        welcomeText, npcImg, gameSettings, successText, retryText, failText);
   }
 }

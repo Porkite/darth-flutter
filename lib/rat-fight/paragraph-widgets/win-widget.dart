@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../paragraph-data.dart';
+
 class WinWidget extends StatelessWidget {
+  final ParagraphData paragraphData;
+
+  const WinWidget({Key? key, required this.paragraphData}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

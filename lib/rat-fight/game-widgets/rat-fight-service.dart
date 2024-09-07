@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'dart:math';
-import 'package:darth_flutter/rat-fight/paragraph-widgets/rat-fight-state.dart';
+import 'package:darth_flutter/rat-fight/rat-fight-state.dart';
 import 'package:flutter/material.dart';
 import 'package:one_dollar_unistroke_recognizer/one_dollar_unistroke_recognizer.dart';
 
 class RatFightService with ChangeNotifier {
   Timer? _timer;
   Timer? _attackTimer;
+  Timer? _givenDamageScoreTimer;
+
   double _leftPosition = 0;
   double _topPosition = 0;
   bool _showGivenDamage = false;
@@ -57,7 +59,7 @@ class RatFightService with ChangeNotifier {
   }
 
   void _startAttackTimer() {
-    _attackTimer = Timer.periodic(const Duration(seconds: 5), (timer) {
+    _attackTimer = Timer.periodic(const Duration(seconds: 3), (timer) {
       _triggerFlashing();
       _startBlockTimer();
     });
@@ -147,7 +149,8 @@ class RatFightService with ChangeNotifier {
     notifyListeners();
     _givenDamageScore = damage;
     _showGivenDamage = true;
-    Timer(Duration(seconds: 1), () {
+    _givenDamageScoreTimer?.cancel();
+    _givenDamageScoreTimer = Timer(Duration(seconds: 1), () {
       _showGivenDamage = false;
       notifyListeners();
     });
@@ -181,7 +184,9 @@ class RatFightService with ChangeNotifier {
 
   @override
   void dispose() {
+    _attackTimer?.cancel();
     _timer?.cancel();
+    _givenDamageScoreTimer?.cancel();
     _blockGestureController.close();
     super.dispose();
   }

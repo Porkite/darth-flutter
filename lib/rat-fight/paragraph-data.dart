@@ -3,35 +3,70 @@ import '../service/model/adventure_models.dart';
 class ParagraphData {
   final String _welcomeText;
   final String _npcImg;
-  final String _successText;
-  final String _retryText;
-  final String _failText;
+  final String _entryText;
+  final String _entryFightButton;
+  final String _entryChickenText;
+  final String _entryGivenMoneyText;
+  final String _entryNoMoneyText;
+  final String _entryDanceText;
+  final String _entryOkText;
+  final String _loseText;
+  final String _loseButton;
 
 
-  ParagraphData(this._welcomeText, this._npcImg,
-      this._successText, this._retryText, this._failText);
+  ParagraphData(
+      this._welcomeText,
+      this._npcImg,
+      this._entryText,
+      this._entryFightButton,
+      this._entryChickenText,
+      this._entryGivenMoneyText,
+      this._entryNoMoneyText,
+      this._entryDanceText,
+      this._entryOkText,
+      this._loseText,
+      this._loseButton,);
 
   String get welcomeText => _welcomeText;
-
   String get npcImg => _npcImg;
-
-  String get successText => _successText;
-
-  String get retryText => _retryText;
-
-  String get failText => _failText;
+  String get entryText => _entryText;
+  String get entryFightButton => _entryFightButton;
+  String get entryChickenText => _entryChickenText;
+  String get entryGivenMoneyText => _entryGivenMoneyText;
+  String get entryNoMoneyText => _entryNoMoneyText;
+  String get entryDanceText => _entryDanceText;
+  String get entryOkText => _entryOkText;
+  String get loseText => _loseText;
+  String get loseButton => _loseButton;
 
 
   factory ParagraphData.fromParagraph(Paragraph paragraph) {
-    final itemCatcherDAta = paragraph.options;
-    final welcomeText = itemCatcherDAta['welcomeText'];
-    final npcImg = itemCatcherDAta['npcImg'];
-    final successText = itemCatcherDAta['successText'];
-    final retryText = itemCatcherDAta['retryText'];
-    final failText = itemCatcherDAta['failText'];
+    final ratFightData = paragraph.options;
+
+    final welcomeText = paragraph.text;
+    final npcImg = ratFightData['npcImg'];
+    final entryText = ratFightData['entryText'];
+    final entryFightButton = ratFightData['entryFightButton'];
+    final entryChickenText = ratFightData['entryChickenText'];
+    final entryGivenMoneyText = ratFightData['entryGivenMoneyText'];
+    final entryNoMoneyText = ratFightData['entryNoMoneyText'];
+    final entryDanceText = ratFightData['entryDanceText'];
+    final entryOkText = ratFightData['entryOkText'];
+    final loseText = ratFightData['loseText'];
+    final loseButton = ratFightData['loseButton'];
 
 
     return ParagraphData(
-        welcomeText, npcImg, successText, retryText, failText);
+      welcomeText,
+      npcImg,
+      entryText,
+      entryFightButton,
+      entryChickenText,
+      entryGivenMoneyText,
+      entryNoMoneyText,
+      entryDanceText,
+      entryOkText,
+      loseText,
+      loseButton);
   }
 }

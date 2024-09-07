@@ -1,15 +1,16 @@
-import 'package:darth_flutter/rat-fight/rat-fight-widget.dart';
+import 'package:darth_flutter/rat-fight/game-widgets/rat-fight-widget.dart';
+import 'package:darth_flutter/rat-fight/paragraph-data.dart';
 import 'package:darth_flutter/service/game_manager.dart';
 import 'package:flutter/material.dart';
 
 import '../../player/player.dart';
-import 'rat-fight-state.dart'; // Import enum
+import '../rat-fight-state.dart';
 
 class EntryWidget extends StatelessWidget {
-  // Funkcja callback do aktualizacji stanu w nadrzędnym widgetcie
   final Function(RatFightState) onUpdateRatFightState;
+  final ParagraphData paragraphData;
 
-  const EntryWidget({Key? key, required this.onUpdateRatFightState}) : super(key: key);
+  const EntryWidget({Key? key, required this.paragraphData, required this.onUpdateRatFightState}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +19,10 @@ class EntryWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const SizedBox(height: 5),
-          const Text(
-            "Tej siwowąsy wyskakuj z talarków albo zgasze na tobie peta!!!",
+           Text(
+            paragraphData.entryText,
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white70,
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -32,25 +33,23 @@ class EntryWidget extends StatelessWidget {
             onPressed: () {
               _takeChickenDecision(context);
             },
-            child: Text('Dobrze proszę Pana'),
+            child: Text(paragraphData.entryChickenText),
           ),
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () {
-              // Nawigacja do `RatFightWidget`
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const RatFightWidget(), // Prawidłowa nawigacja
+                  builder: (context) => const RatFightWidget(),
                 ),
               ).then((result) {
                 if (result != null && result is RatFightState) {
-                  // Wywołanie callbacka z odpowiednim wynikiem
                   onUpdateRatFightState(result);
                 }
               });
             },
-            child: Text('Posmakuj srebra na ostrzu'),
+            child: Text(paragraphData.entryFightButton),
           ),
         ],
       ),
@@ -64,16 +63,14 @@ class EntryWidget extends StatelessWidget {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            content: Text('Oddałeś 20 sztuk złota'),
+            content: Text(paragraphData.entryGivenMoneyText),
             actions: [
               TextButton(
                 onPressed: () {
                   GameManager().rollbackPlayerPosition(1);
-                  // Wywołanie callbacka po sukcesie
-                  onUpdateRatFightState(RatFightState.WIN);
                   Navigator.pop(context);
                 },
-                child: Text('OK'),
+                child: Text(paragraphData.entryOkText),
               ),
             ],
           );
@@ -88,7 +85,6 @@ class EntryWidget extends StatelessWidget {
             actions: [
               TextButton(
                 onPressed: () {
-                  // Przechodzimy do walki
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -100,7 +96,7 @@ class EntryWidget extends StatelessWidget {
                     }
                   });
                 },
-                child: Text('Nie umiem tańczyć'),
+                child: Text(paragraphData.entryDanceText),
               ),
             ],
           );

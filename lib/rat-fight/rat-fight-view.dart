@@ -1,9 +1,11 @@
+import 'package:darth_flutter/rat-fight/paragraph-data.dart';
 import 'package:darth_flutter/rat-fight/paragraph-widgets/entry-widget.dart';
 import 'package:darth_flutter/rat-fight/paragraph-widgets/lose-widget.dart';
-import 'package:darth_flutter/rat-fight/paragraph-widgets/rat-fight-state.dart';
+import 'package:darth_flutter/rat-fight/rat-fight-state.dart';
 import 'package:darth_flutter/rat-fight/paragraph-widgets/win-widget.dart';
 import 'package:flutter/material.dart';
 
+import '../player/player.dart';
 import '../service/game_manager.dart';
 import '../service/model/adventure_models.dart';
 
@@ -18,12 +20,13 @@ class RatFightViewWidget extends StatefulWidget {
 
 class _RatFightViewWidget extends State<RatFightViewWidget> {
   late RatFightState _ratFightState;
+  late ParagraphData _paragraphData;
 
   @override
   void initState() {
+    _paragraphData = ParagraphData.fromParagraph(widget.paragraph);
     super.initState();
     _ratFightState = RatFightState.ENTRY;
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       GameManager().setBlockMovement(true);
     });
@@ -37,8 +40,12 @@ class _RatFightViewWidget extends State<RatFightViewWidget> {
     super.dispose();
   }
 
-  // Funkcja do aktualizacji stanu ratFightState
   void updateRatFightState(RatFightState newState) {
+    if(newState == RatFightState.WIN) {
+      GameManager().setBlockMovement(false);
+    } else if (newState == RatFightState.LOSE) {
+      Player().clearCoins();
+    }
     setState(() {
       _ratFightState = newState;
     });
@@ -51,13 +58,13 @@ class _RatFightViewWidget extends State<RatFightViewWidget> {
       children: [
         Center(
           child: CircleAvatar(
-            backgroundImage: AssetImage("assets/images/rat-fighter/rat.png"),
+            backgroundImage: AssetImage(_paragraphData.npcImg),
             radius: 40,
           ),
         ),
         const SizedBox(height: 10),
         Text(
-          "Ojj zły kanał bratku",
+          widget.paragraph.text,
           style: const TextStyle(
             color: Colors.white,
             fontSize: 28,
@@ -66,11 +73,11 @@ class _RatFightViewWidget extends State<RatFightViewWidget> {
         ),
         const SizedBox(height: 5),
         if(_ratFightState == RatFightState.ENTRY)
-          EntryWidget(onUpdateRatFightState: updateRatFightState),
+          EntryWidget(paragraphData: _paragraphData, onUpdateRatFightState: updateRatFightState),
         if(_ratFightState == RatFightState.WIN)
-          WinWidget(),
+          WinWidget(paragraphData: _paragraphData),
         if(_ratFightState == RatFightState.LOSE)
-          LoseWidget()
+          LoseWidget(paragraphData: _paragraphData)
       ],
     );
   }

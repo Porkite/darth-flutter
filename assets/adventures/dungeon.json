@@ -143,20 +143,18 @@
     {
       "type": "ratFight",
       "identifier": "e3",
-      "text": "Hejj białowąsy!",
+      "text": "Ojj, zły kanał bratku...!",
       "options": {
-        "welcomeText": "Za tym małym otworem jest drzewo życia. Zmniejszę Cię, byś mógł się tam dostać i zebrać dla mnie owoce, a w zamian przepuszczę Cię dalej. \n Wchodzisz w to?",
-        "successText": "Przyjacielu, udało Ci się!",
-        "failText": "Wasza brać jest bezużyteczna",
-        "retryText": "Właź z powrotem do dziury!!!",
-        "npcImg": "assets/images/item-catcher/witch.png",
-        "gameSettings": {
-          "playerImg": "assets/images/item-catcher/apple_rat.png",
-          "backgroundImg": "assets/images/item-catcher/apple_tree.png",
-          "itemImg": "assets/images/item-catcher/apple.png",
-          "targetScore": 35,
-          "maxAttempts": 2
-        }
+        "entryText": "Tej siwowąsy wyskakuj z talarków albo zgasze na tobie peta!!!",
+        "entryFightButton": "Posmakuj srebra na moim ostrzu",
+        "entryChickenText": "Dobrze proszę Pana",
+        "entryGivenMoneyText": "Oddałeś 20 sztuk złota",
+        "entryNoMoneyText": "Nie masz tyle biedaku. \\n Zatańczmy!!!",
+        "entryDanceText": "Nie umiem tańczyć",
+        "entryOkText": "Ok",
+        "loseText": "I co!? Trzeba było się rzucać?. Teraz tracisz wszystkie talarki.",
+        "loseButton": "Jeszcze tu wróce",
+        "npcImg": "assets/images/rat-fighter/rat.png"
       }
     }
   ]

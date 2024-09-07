@@ -11,7 +11,6 @@ class RatFightWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final ratFightService = Provider.of<RatFightService>(context);
 
-    // Defer the initialization until the first frame is complete
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ratFightService.initialize(context);
     });
@@ -43,6 +42,70 @@ class RatFightWidget extends StatelessWidget {
               ),
             ),
           ),
+          AnimatedPositioned(
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeInOut,
+            top: ratFightService.topPosition,
+            left: ratFightService.leftPosition,
+            child: AnimatedScale(
+              scale: scale,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeInOut,
+              child: Stack(
+                children: [
+                  if (ratFightService.showGivenDamage)
+                  Text(
+                    '-${ratFightService.givenDamageScore} HP',
+                    style: const TextStyle(
+                      color: Colors.red,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+
+                  Positioned.fill(
+                    child: Center(
+                      child: Container(
+                        width: 180 * scale,
+                        height: 180 * scale,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: ratFightService.isFlashing
+                              ? Colors.yellow.withOpacity(0.5)
+                              : Colors.transparent,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Image.asset(
+                    'assets/images/rat-fighter/rat.png',
+                    width: 150,
+                    height: 150,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            left: (MediaQuery.of(context).size.width - 300) / 2,
+            child: Image.asset(
+              'assets/images/rat-fighter/player.png',
+              width: 300,
+              height: 300,
+              fit: BoxFit.fill,
+            ),
+          ),
+          Opacity(
+            opacity: (1.0 - ratFightService.playerHealth / 100).clamp(0.0, 1.0),
+            child: Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/rat-fighter/blood_screen.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
+          )),
           Positioned(
             top: 20,
             left: MediaQuery.of(context).size.width / 2 - 125,
@@ -63,8 +126,8 @@ class RatFightWidget extends StatelessWidget {
                 gradient: LinearGradient(
                   colors: const [Colors.red, Colors.green],
                   stops: [
-                    ratFightService.playerHealth / 100,
-                    ratFightService.playerHealth / 100
+                    ratFightService.getEnemyHealth / 100,
+                    ratFightService.getEnemyHealth / 100
                   ],
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
@@ -77,82 +140,20 @@ class RatFightWidget extends StatelessWidget {
                     right: 0,
                     top: 0,
                     bottom: 0,
-                    child: DecoratedBox(
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 500),  // Czas trwania animacji
+                      curve: Curves.easeInOut,  // Krzywa animacji
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: Colors.brown, width: 3),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          if (ratFightService.showDamage &&
-              ratFightService.damagePosition != null)
-            Positioned(
-              top: ratFightService.damagePosition!.dy - 40 + 30 / scale,
-              left: ratFightService.damagePosition!.dx + 75 * scale,
-              child: Text(
-                '-${ratFightService.damageScore} HP',
-                style: const TextStyle(
-                  color: Colors.red,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          AnimatedPositioned(
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.easeInOut,
-            top: ratFightService.topPosition,
-            left: ratFightService.leftPosition,
-            child: AnimatedScale(
-              scale: scale,
-              duration: const Duration(milliseconds: 500),
-              curve: Curves.easeInOut,
-              child: Stack(
-                children: [
-                  Positioned.fill(
-                    child: Center(
-                      child: Container(
-                        width: 180 * scale,
-                        height: 180 * scale,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          gradient: RadialGradient(
-                            colors: [
-                              ratFightService.isFlashing
-                                  ? Colors.red.withOpacity(0.5)
-                                  : Colors.transparent,
-                              ratFightService.isFlashing
-                                  ? Colors.red.withOpacity(0.0)
-                                  : Colors.transparent,
-                            ],
-                            stops: const [0.0, 1.0],
-                            radius: 0.9,
-                          ),
+                        border: Border.all(
+                          color: ratFightService.isFlashing ? Colors.yellow : Colors.brown,  // Zmieniaj kolor na żółty gdy isFlashing = true
+                          width: 3,
                         ),
                       ),
                     ),
                   ),
-                  Image.asset(
-                    'assets/images/rat-fighter/rat.png',
-                    width: 150,
-                    height: 150,
-                  ),
                 ],
               ),
-            ),
-          ),
-          Positioned(
-            bottom: 0,
-            left: MediaQuery.of(context).size.width / 2 - 250,
-            child: Image.asset(
-              'assets/images/rat-fighter/player.png',
-              width: 500,
-              height: 500,
-              fit: BoxFit.fill,
             ),
           ),
           if (ratFightService.swipePath.isNotEmpty)

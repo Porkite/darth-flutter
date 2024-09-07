@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:darth_flutter/rat-fight/paragraph-widgets/rat-fight-state.dart';
 import 'package:flutter/material.dart';
 import 'package:one_dollar_unistroke_recognizer/one_dollar_unistroke_recognizer.dart';
 
@@ -8,28 +9,30 @@ class RatFightService with ChangeNotifier {
   Timer? _attackTimer;
   double _leftPosition = 0;
   double _topPosition = 0;
-  bool _showDamage = false;
-  int _damageScore = 0;
-  Offset? _damagePosition;
+  bool _showGivenDamage = false;
+  int _givenDamageScore = 0;
   int fighterSize = 100;
-  int health = 100;
+  int enemyHealth = 100;
+  int playerHealth = 100;
+  static const int _timeForBlock = 2;
   bool _swipeDetected = false;
   bool _isFlashing = false;
   final List<Offset> _swipePath = [];
   bool _initialized = false;
   late BuildContext _context;
+  final StreamController<void> _blockGestureController = StreamController<void>.broadcast();
+  late double scale;
+  Stream<void> get  _blockGestureStream => _blockGestureController.stream;
 
   double get leftPosition => _leftPosition;
 
   double get topPosition => _topPosition;
 
-  bool get showDamage => _showDamage;
+  bool get showGivenDamage => _showGivenDamage;
 
-  int get damageScore => _damageScore;
+  int get givenDamageScore => _givenDamageScore;
 
-  Offset? get damagePosition => _damagePosition;
-
-  int get playerHealth => health;
+  int get getEnemyHealth => enemyHealth;
 
   List<Offset> get swipePath => List.unmodifiable(_swipePath);
 
@@ -44,6 +47,8 @@ class RatFightService with ChangeNotifier {
       _initialized = true;
       _startMovingEnemy();
       _startAttackTimer();
+      double screenHeight = MediaQuery.of(_context).size.height;
+      scale = calculateScale(screenHeight);
     }
   }
 
@@ -54,6 +59,25 @@ class RatFightService with ChangeNotifier {
   void _startAttackTimer() {
     _attackTimer = Timer.periodic(const Duration(seconds: 5), (timer) {
       _triggerFlashing();
+      _startBlockTimer();
+    });
+  }
+
+  void _startBlockTimer() {
+    bool isBlocked = false;
+    _blockGestureStream.listen((_) {
+      isBlocked = true;
+    });
+
+    Timer(const Duration(seconds: _timeForBlock), () {
+      if (!isBlocked) {
+        playerHealth -= 15;
+        if(playerHealth <= 0){
+          loseGame(_context);
+        }
+        notifyListeners();
+      }
+      isBlocked = false;
     });
   }
 
@@ -61,7 +85,7 @@ class RatFightService with ChangeNotifier {
     _isFlashing = true;
     notifyListeners();
 
-    Timer(const Duration(seconds: 1), () {
+    Timer(const Duration(seconds: _timeForBlock), () {
       _isFlashing = false;
       notifyListeners();
     });
@@ -107,7 +131,7 @@ class RatFightService with ChangeNotifier {
       List<Offset> points, RecognizedUnistroke? recognizedUnistroke) {
     if (recognizedUnistroke != null) {
       if (recognizedUnistroke.name == DefaultUnistrokeNames.circle) {
-        _applyDamage(10);
+        _blockGestureController.add(null);
       } else if (recognizedUnistroke.name == DefaultUnistrokeNames.triangle) {
         _applyDamage(20);
       }
@@ -115,15 +139,16 @@ class RatFightService with ChangeNotifier {
   }
 
   void _applyDamage(int damage) {
-    _showDamage = true;
-    _damageScore = damage;
-    _damagePosition = Offset(_leftPosition, _topPosition);
-    health = max(0, health - damage);
+    enemyHealth = max(0, enemyHealth - damage);
+    if(enemyHealth <= 0){
+      winGame(_context);
+    }
     _swipeDetected = true;
     notifyListeners();
-
+    _givenDamageScore = damage;
+    _showGivenDamage = true;
     Timer(Duration(seconds: 1), () {
-      _showDamage = false;
+      _showGivenDamage = false;
       notifyListeners();
     });
   }
@@ -146,9 +171,18 @@ class RatFightService with ChangeNotifier {
         position.dy <= _topPosition + 150;
   }
 
+  void winGame(BuildContext context) {
+    Navigator.pop(context, RatFightState.WIN);
+  }
+
+  void loseGame(BuildContext context) {
+    Navigator.pop(context, RatFightState.LOSE);
+  }
+
   @override
   void dispose() {
     _timer?.cancel();
+    _blockGestureController.close();
     super.dispose();
   }
 }

@@ -29,7 +29,7 @@ void main() {
           initialRoute: '/home',
           routes: {
             '/home': (context) => Home(),
-            '/game': (context) => RatFightWidget(),
+            '/game': (context) => Game(),
           }
       )
     ),

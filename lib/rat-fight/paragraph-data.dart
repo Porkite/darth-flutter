@@ -12,7 +12,7 @@ class ParagraphData {
   final String _entryOkText;
   final String _loseText;
   final String _loseButton;
-
+  final String _winText;
 
   ParagraphData(
       this._welcomeText,
@@ -25,20 +25,32 @@ class ParagraphData {
       this._entryDanceText,
       this._entryOkText,
       this._loseText,
-      this._loseButton,);
+      this._loseButton,
+      this._winText);
 
   String get welcomeText => _welcomeText;
+
   String get npcImg => _npcImg;
+
   String get entryText => _entryText;
+
   String get entryFightButton => _entryFightButton;
+
   String get entryChickenText => _entryChickenText;
+
   String get entryGivenMoneyText => _entryGivenMoneyText;
+
   String get entryNoMoneyText => _entryNoMoneyText;
+
   String get entryDanceText => _entryDanceText;
+
   String get entryOkText => _entryOkText;
+
   String get loseText => _loseText;
+
   String get loseButton => _loseButton;
 
+  String get winText => _winText;
 
   factory ParagraphData.fromParagraph(Paragraph paragraph) {
     final ratFightData = paragraph.options;
@@ -54,19 +66,20 @@ class ParagraphData {
     final entryOkText = ratFightData['entryOkText'];
     final loseText = ratFightData['loseText'];
     final loseButton = ratFightData['loseButton'];
-
+    final winText = ratFightData['winText'];
 
     return ParagraphData(
-      welcomeText,
-      npcImg,
-      entryText,
-      entryFightButton,
-      entryChickenText,
-      entryGivenMoneyText,
-      entryNoMoneyText,
-      entryDanceText,
-      entryOkText,
-      loseText,
-      loseButton);
+        welcomeText,
+        npcImg,
+        entryText,
+        entryFightButton,
+        entryChickenText,
+        entryGivenMoneyText,
+        entryNoMoneyText,
+        entryDanceText,
+        entryOkText,
+        loseText,
+        loseButton,
+        winText);
   }
 }

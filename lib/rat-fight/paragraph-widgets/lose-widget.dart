@@ -15,10 +15,9 @@ class LoseWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(height: 5),
-          Text(
-            "I co!? Trzeba było się rzucać?. Teraz tracisz wszystkie talarki.",
+          Text(paragraphData.loseText,
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white70,
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -29,7 +28,7 @@ class LoseWidget extends StatelessWidget {
               onPressed: () {
                 GameManager().rollbackPlayerPosition(1);
               },
-              child: Text('Jeszcze tu wróce'))
+              child: Text(paragraphData.loseButton))
         ],
       ),
     );

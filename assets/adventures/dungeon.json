@@ -146,14 +146,15 @@
       "text": "Ojj, zły kanał bratku...!",
       "options": {
         "entryText": "Tej siwowąsy wyskakuj z talarków albo zgasze na tobie peta!!!",
-        "entryFightButton": "Posmakuj srebra na moim ostrzu",
+        "entryFightButton": "Posmakuj srebra mojego ostrza.",
         "entryChickenText": "Dobrze proszę Pana",
         "entryGivenMoneyText": "Oddałeś 20 sztuk złota",
-        "entryNoMoneyText": "Nie masz tyle biedaku. \\n Zatańczmy!!!",
+        "entryNoMoneyText": "Nie masz tyle biedaku. Zatańczmy!!!",
         "entryDanceText": "Nie umiem tańczyć",
         "entryOkText": "Ok",
         "loseText": "I co!? Trzeba było się rzucać?. Teraz tracisz wszystkie talarki.",
         "loseButton": "Jeszcze tu wróce",
+        "winText": "Ała!! Już wystarczy. Masz tu papieroski i idź z bogiem.",
         "npcImg": "assets/images/rat-fighter/rat.png"
       }
     }

@@ -81,10 +81,11 @@ class EntryWidget extends StatelessWidget {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            content: Text('Nie masz tyle biedaku. \n Zatańczmy!!!'),
+            content: Text(paragraphData.entryNoMoneyText),
             actions: [
               TextButton(
                 onPressed: () {
+                  Navigator.pop(context);
                   Navigator.push(
                     context,
                     MaterialPageRoute(

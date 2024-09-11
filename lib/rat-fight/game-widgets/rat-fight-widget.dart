@@ -2,6 +2,7 @@ import 'package:darth_flutter/rat-fight/game-widgets/rat-fight-service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:one_dollar_unistroke_recognizer/one_dollar_unistroke_recognizer.dart';
+import '../../service/model/equipment_state.dart';
 import 'guest-pinter.dart';
 
 class RatFightWidget extends StatelessWidget {
@@ -10,7 +11,7 @@ class RatFightWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<RatFightService>(
-      create: (_) => RatFightService(),  // Tworzenie nowego serwisu
+      create: (_) => RatFightService(),
       child: Consumer<RatFightService>(
         builder: (context, ratFightService, child) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -154,6 +155,35 @@ class RatFightWidget extends StatelessWidget {
                           ),
                         ),
                       ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 0,
+                  top: 20,
+                  bottom: 20,
+                  child: SizedBox(
+                    width: 50,
+                    child: ListView.builder(
+                      itemCount: ratFightService.eqItems.length,
+                      itemBuilder: (context, index) {
+                        String key = ratFightService.eqItems.keys.elementAt(index);
+                        Item item = ratFightService.eqItems[key]!;
+                        return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: IconButton(
+                              icon: Image.asset(
+                                item.iconPath,
+                                width: 50,
+                                height: 50,
+                                fit: BoxFit.contain,
+                              ),
+                              onPressed: () {
+                                ratFightService.useEqItem(key);
+                              },
+                            )
+                        );
+                      },
                     ),
                   ),
                 ),

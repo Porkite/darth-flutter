@@ -4,11 +4,14 @@ import 'package:darth_flutter/rat-fight/rat-fight-state.dart';
 import 'package:flutter/material.dart';
 import 'package:one_dollar_unistroke_recognizer/one_dollar_unistroke_recognizer.dart';
 
+import '../../service/game_manager.dart';
+import '../../service/items_manager.dart';
+import '../../service/model/equipment_state.dart';
+
 class RatFightService with ChangeNotifier {
   Timer? _timer;
   Timer? _attackTimer;
   Timer? _givenDamageScoreTimer;
-
   double _leftPosition = 0;
   double _topPosition = 0;
   bool _showGivenDamage = false;
@@ -24,6 +27,7 @@ class RatFightService with ChangeNotifier {
   late BuildContext _context;
   final StreamController<void> _blockGestureController = StreamController<void>.broadcast();
   late double scale;
+  Map<String, Item> eqItems = {};
   Stream<void> get  _blockGestureStream => _blockGestureController.stream;
 
   double get leftPosition => _leftPosition;
@@ -51,6 +55,7 @@ class RatFightService with ChangeNotifier {
       _startAttackTimer();
       double screenHeight = MediaQuery.of(_context).size.height;
       scale = calculateScale(screenHeight);
+      eqItems = ItemsManager().getItemsAsItemsFromInventory(GameManager().getPlayerEquipment().getItems());
     }
   }
 
@@ -176,6 +181,12 @@ class RatFightService with ChangeNotifier {
 
   void winGame(BuildContext context) {
     Navigator.pop(context, RatFightState.WIN);
+  }
+
+  void useEqItem(String itemIdentifier) {
+    GameManager().getPlayerEquipment().removeItem(itemIdentifier);
+    eqItems = ItemsManager().getItemsAsItemsFromInventory(GameManager().getPlayerEquipment().getItems());
+    playerHealth += 50;
   }
 
   void loseGame(BuildContext context) {

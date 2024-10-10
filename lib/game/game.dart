@@ -62,14 +62,6 @@ class _GameState extends State<Game> {
             PlayerAppBarStatsWidget(),
           ],
         ),
-        title: Selector<GameManager, String>(
-          selector: (_, gm) => gm.getPlayerPositionId(),
-          builder: (_, positionId, __) => Text(
-            'Ekran przygody ($positionId)',
-            style: const TextStyle(color: Colors.white),
-          ),
-        ),
-        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(30),

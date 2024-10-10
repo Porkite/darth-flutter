@@ -70,15 +70,6 @@
           "apiUrl": "https://quizapi.io/api/v1/questions",
           "apiKey": "P0caeBeQukpTAkc15r6aEcNVQfhNsIkYtHZqmIxA",
           "difficulty": "easy",
-          "categories": [
-            "Linux",
-            "DevOps",
-            "Networking",
-            "Programming",
-            "Cloud",
-            "Docker",
-            "Kubernetes"
-          ],
           "questionNumb": 10
         }
       }

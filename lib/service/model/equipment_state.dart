@@ -1,3 +1,5 @@
+import '../items_manager.dart';
+
 class Item {
   String name;
   String iconPath;
@@ -25,6 +27,11 @@ class EquipmentState {
 
   void addItem(EquipmentItem item) {
     _items.add(item);
+  }
+
+  void removeItem(String itemIdentifier) {
+    _items.removeWhere((item) => item.itemIdentifier == itemIdentifier);
+
   }
 
   List<EquipmentItem> getItems() {

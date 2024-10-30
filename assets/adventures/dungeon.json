@@ -70,15 +70,6 @@
           "apiUrl": "https://quizapi.io/api/v1/questions",
           "apiKey": "P0caeBeQukpTAkc15r6aEcNVQfhNsIkYtHZqmIxA",
           "difficulty": "easy",
-          "categories": [
-            "Linux",
-            "DevOps",
-            "Networking",
-            "Programming",
-            "Cloud",
-            "Docker",
-            "Kubernetes"
-          ],
           "questionNumb": 10
         }
       }
@@ -141,10 +132,22 @@
       "type": ""
     },
     {
+      "type": "ratFight",
       "identifier": "e3",
-      "options": {},
-      "text": "test",
-      "type": ""
+      "text": "Ojj, zły kanał bratku...!",
+      "options": {
+        "entryText": "Tej siwowąsy wyskakuj z talarków albo zgasze na tobie peta!!!",
+        "entryFightButton": "Posmakuj srebra mojego ostrza.",
+        "entryChickenText": "Dobrze proszę Pana",
+        "entryGivenMoneyText": "Oddałeś 20 sztuk złota",
+        "entryNoMoneyText": "Nie masz tyle biedaku. Zatańczmy!!!",
+        "entryDanceText": "Nie umiem tańczyć",
+        "entryOkText": "Ok",
+        "loseText": "I co!? Trzeba było się rzucać?. Teraz tracisz wszystkie talarki.",
+        "loseButton": "Jeszcze tu wróce",
+        "winText": "Ała!! Już wystarczy. Masz tu papieroski i idź z bogiem.",
+        "npcImg": "assets/images/rat-fighter/rat.png"
+      }
     }
   ]
 }

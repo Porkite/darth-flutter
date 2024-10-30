@@ -25,6 +25,11 @@ class Player extends ChangeNotifier {
     notifyListeners();
   }
 
+  void clearCoins() {
+    this._coins = 0;
+    notifyListeners();
+  }
+
   void subtractCoins(int coins) {
     int newValue = this._coins - coins;
 

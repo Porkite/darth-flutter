@@ -57,7 +57,6 @@ class Player {
   }
 
   void setBlockedMovement(bool blockMovement) {
-    allowedMoves = AllowedMoves(north: false, south: false, east: false, west: false);
     blockedMovement = blockMovement;
   }
 

@@ -21,4 +21,18 @@ class ItemsManager {
         items.putIfAbsent(key, () => Item(value['name'], value['iconPath'])));
     return items;
   }
+
+  Map<String, Item> getItemsAsItemsFromInventory(List<EquipmentItem> equipmentItems) {
+    Map<String, Item> mappedItems = {};
+
+    for (var equipmentItem in equipmentItems) {
+      var item = items[equipmentItem.itemIdentifier];
+      if (item != null) {
+        mappedItems[equipmentItem.itemIdentifier] = item;
+      }
+    }
+
+    return mappedItems;
+  }
+
 }

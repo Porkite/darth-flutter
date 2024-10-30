@@ -21,13 +21,11 @@ class QuizFetchUtil {
 
   static Uri getUri(QuizHttp quizHttp) {
     final random = Random();
-    final randomCategory = quizHttp.categories[random.nextInt(quizHttp.categories.length)];
 
     return Uri.parse(quizHttp.apiUrl).replace(
       queryParameters: {
         'apiKey': quizHttp.apiKey,
         'limit': quizHttp.questionNumb.toString(),
-        'category': randomCategory,
         'difficulty': quizHttp.difficulty,
       },
     );

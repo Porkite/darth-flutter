@@ -46,11 +46,17 @@ class _EquipmentWidget extends State<EquipmentWidget> {
               backgroundColor: Colors.grey,
             )),
         Expanded(
-          child: GridView.count(
-            crossAxisCount: 4,
-            children: [...itemsWidgets],
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              int crossAxisCount = (constraints.maxWidth ~/ 150).toInt().clamp(1, 4);
+              return GridView.count(
+                crossAxisCount: crossAxisCount,
+                children: [...itemsWidgets],
+              );
+            },
           ),
-        ),
+        )
+
       ],
     );
   }

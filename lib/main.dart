@@ -5,11 +5,14 @@ import 'package:darth_flutter/rat-fight/game-widgets/rat-fight-service.dart';
 import 'package:darth_flutter/service/adventure_manager.dart';
 import 'package:darth_flutter/service/game_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'map/minimap-service.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   runApp(
     MultiProvider(
       providers: [
